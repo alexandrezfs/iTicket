@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="4086607179">
+    <data-source source="LOCAL" name="MySQL - iTicket@localhost" uuid="56782bcb-140d-4f3e-8f5a-4f4ed3e89dba">
+      <driver-ref>mysql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/iTicket</jdbc-url>
+      <user-name>root</user-name>
+      <user-password>dfc1dfcbdfd0dfdfdfc1dfc3df9cdf93</user-password>
+      <schema-pattern>iTicket.*</schema-pattern>
+      <default-schemas>iTicket.*</default-schemas>
+      <driver-properties>
+        <property name="zeroDateTimeBehavior" value="convertToNull" />
+        <property name="tinyInt1isBit" value="false" />
+      </driver-properties>
+      <libraries />
+    </data-source>
+  </component>
+</project>
+

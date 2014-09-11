@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+    <title>iTicket</title>
+
+    <link rel="stylesheet" href="assets/bower_components/foundation/css/foundation.css" />
+    <link rel="stylesheet" href="assets/bower_components/fancybox/source/jquery.fancybox.css" />
+
+    <script src="assets/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="assets/bower_components/foundation/js/foundation.min.js"></script>
+    <script src="assets/bower_components/isotope/dist/isotope.pkgd.min.js"></script>
+    <script src="assets/bower_components/fancybox/source/jquery.fancybox.pack.js"></script>
+
+</h:head>
+<h:body>
+
+    <nav class="top-bar">
+        <ul class="title-area">
+
+            <li class="name">
+                <h1>
+                    <a href="#">
+                        iTicket
+                    </a>
+                </h1>
+            </li>
+        </ul>
+        <section class="top-bar-section">
+
+            <ul class="left">
+                <li class="divider"></li>
+                <li>
+                    <a href="allTickets.xhtml">All Tickets</a>
+                </li>
+                <li>
+                    <a href="addTicket.xhtml">Add Ticket</a>
+                </li>
+                <li>
+                    <a href="myTickets.xhtml">My Tickets</a>
+                </li>
+            </ul>
+
+            <ul class="right">
+                <li class="divider"></li>
+                <li>
+                    <a href="signup.xhtml">Sign Up</a>
+                </li>
+            </ul>
+        </section>
+    </nav>
+
+    <ui:insert name="inBody" />
+
+    <footer class="row">
+        <div class="large-12 columns">
+            <hr/>
+            <div class="row">
+                <div class="large-6 columns">
+                    <p>Under MIT License.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+        $(document).foundation();
+    </script>
+
+</h:body>
+</html>

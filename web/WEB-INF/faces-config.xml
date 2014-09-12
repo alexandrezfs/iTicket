@@ -5,8 +5,14 @@
     http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
 
     <managed-bean>
-        <managed-bean-name>User</managed-bean-name>
+        <managed-bean-name>UserController</managed-bean-name>
         <managed-bean-class>iTicket.controller.UserController</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>UiBean</managed-bean-name>
+        <managed-bean-class>iTicket.template.UiBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 

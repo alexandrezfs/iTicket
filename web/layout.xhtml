@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:pf="http://primefaces.org/ui"
       xmlns:h="http://java.sun.com/jsf/html">
 <h:head>
     <title>iTicket</title>
@@ -10,8 +11,10 @@
     <link rel="stylesheet" href="assets/bower_components/foundation/css/foundation.css" />
     <link rel="stylesheet" href="assets/bower_components/fancybox/source/jquery.fancybox.css" />
     <link rel="stylesheet" href="assets/bower_components/datetimepicker/jquery.datetimepicker.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
 
     <script src="assets/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="assets/bower_components/modernizr/modernizr.js"></script>
     <script src="assets/bower_components/foundation/js/foundation.min.js"></script>
     <script src="assets/bower_components/isotope/dist/isotope.pkgd.min.js"></script>
     <script src="assets/bower_components/fancybox/source/jquery.fancybox.pack.js"></script>
@@ -21,7 +24,7 @@
 </h:head>
 <h:body>
 
-    <nav class="top-bar">
+    <nav class="top-bar" data-topbar="true">
         <ul class="title-area">
 
             <li class="name">
@@ -32,6 +35,8 @@
                 </h1>
             </li>
 
+            <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+
         </ul>
         <section class="top-bar-section">
 
@@ -40,9 +45,11 @@
                 <li>
                     <a href="allTickets.xhtml">All Tickets</a>
                 </li>
+                <li class="divider"></li>
                 <li>
                     <a href="addTicket.xhtml">Add Ticket</a>
                 </li>
+                <li class="divider"></li>
                 <li>
                     <a href="myTickets.xhtml">My Tickets</a>
                 </li>

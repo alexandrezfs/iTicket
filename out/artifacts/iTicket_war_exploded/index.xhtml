@@ -2,6 +2,8 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:pf="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jstl/core"
                 template="layout.xhtml">
 
     <ui:define name="inBody">
@@ -9,6 +11,19 @@
         <div class="row">
 
             <div class="large-12 columns">
+
+                <c:if test="#{ not empty signupFlash }">
+                    <c:if test="${ signupFlash == true }">
+                        <div data-alert="true" class="alert-box success radius">
+                            You successfully signed up ! You can now <a href="signin.xhtml">log in</a>.
+                            <h:form>
+                                <h:commandLink value="x" styleClass="close">
+                                    <f:ajax listener="#{ uiBean.destroySignupFlash }" />
+                                </h:commandLink>
+                            </h:form>
+                        </div>
+                    </c:if>
+                </c:if>
 
                 <div class="panel">
 

@@ -1,0 +1,14 @@
+.error-override {
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.error-override li {
+    list-style-type: none;
+    color: white;
+    font-weight: bold;
+}
+
+.top-bar {
+    margin-bottom: 20px;
+}

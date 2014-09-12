@@ -1,9 +1,22 @@
 package iTicket.controller;
 
+import iTicket.entities.DeveloperEntity;
+import iTicket.entities.ProductOwnerEntity;
+import iTicket.entities.UserEntity;
+import iTicket.jpa.UserJpa;
+import iTicket.template.UiBean;
+
+import java.io.IOException;
 import java.io.Serializable;
-import java.security.Timestamp;
+import java.util.Date;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -22,8 +35,8 @@ public class UserController implements Serializable {
     private String firstName;
     private String lastName;
     private String email;
-    private Timestamp dateOfBirth;
-    private boolean isDeveloper;
+    private String dateOfBirthString;
+    private String userType;
 
     public String login() {
 
@@ -38,7 +51,75 @@ public class UserController implements Serializable {
 
     public String signup() {
 
+        Timestamp dateOfBirthTimestamp = new Timestamp(0);
 
+        try {
+
+            dateOfBirthTimestamp = new Timestamp(new SimpleDateFormat("yyyy-MM-dd")
+                    .parse(this.dateOfBirthString)
+                    .getTime());
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        UserJpa uJ = new UserJpa();
+
+        if(uJ.getUserByEmail(this.email) != null) {
+
+            context.addMessage("signup-form", new FacesMessage("This e-mail address already exists !"));
+
+        }
+        else {
+
+            if(this.userType.equals("DEVELOPER")){
+
+                uJ.addDeveloper(new DeveloperEntity(
+                        dateOfBirthTimestamp,
+                        this.email,
+                        this.lastName,
+                        this.firstName,
+                        this.password,
+                        this.username
+                ));
+
+            }
+            else if(this.userType.equals("PRODUCT_OWNER")){
+
+                uJ.addProductOwner(new ProductOwnerEntity(
+                        dateOfBirthTimestamp,
+                        this.email,
+                        this.lastName,
+                        this.firstName,
+                        this.password,
+                        this.username
+                ));
+
+            }
+            else {
+
+                uJ.addUser(new UserEntity(
+                        dateOfBirthTimestamp,
+                        this.email,
+                        this.lastName,
+                        this.firstName,
+                        this.password,
+                        this.username
+                ));
+
+            }
+
+            new UiBean().displaySignupFlash();
+
+            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+
+            try {
+                ec.redirect(ec.getRequestContextPath() + "/index.xhtml");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
 
         return null;
     }
@@ -83,20 +164,19 @@ public class UserController implements Serializable {
         this.lastName = lastName;
     }
 
-    public Timestamp getDateOfBirth() {
-        return dateOfBirth;
+    public String getDateOfBirthString() {
+        return dateOfBirthString;
     }
 
-    public void setDateOfBirth(Timestamp dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+    public void setDateOfBirthString(String dateOfBirthString) {
+        this.dateOfBirthString = dateOfBirthString;
     }
 
-    public boolean isDeveloper() {
-        return isDeveloper;
+    public String getUserType() {
+        return userType;
     }
 
-    public void setDeveloper(boolean isDeveloper) {
-        this.isDeveloper = isDeveloper;
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
-
 }

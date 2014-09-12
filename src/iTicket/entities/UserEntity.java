@@ -4,9 +4,6 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Collection;
 
-/**
- * Created by alexandrenguyen on 11/09/2014.
- */
 @Entity
 @Table(name = "user", schema = "", catalog = "iTicket")
 public class UserEntity {
@@ -17,9 +14,19 @@ public class UserEntity {
     private String lastName;
     private String email;
     private Timestamp dateOfBirth;
-    private String dtype;
     private Collection<CommentEntity> commentsById;
     private Collection<TicketEntity> ticketsById;
+
+    public UserEntity() {}
+
+    public UserEntity(Timestamp dateOfBirth, String email, String lastName, String firstName, String password, String username) {
+        this.dateOfBirth = dateOfBirth;
+        this.email = email;
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.password = password;
+        this.username = username;
+    }
 
     @Id
     @Column(name = "id")
@@ -91,16 +98,6 @@ public class UserEntity {
         this.dateOfBirth = dateOfBirth;
     }
 
-    @Basic
-    @Column(name = "DTYPE")
-    public String getDtype() {
-        return dtype;
-    }
-
-    public void setDtype(String dtype) {
-        this.dtype = dtype;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -110,7 +107,6 @@ public class UserEntity {
 
         if (id != that.id) return false;
         if (dateOfBirth != null ? !dateOfBirth.equals(that.dateOfBirth) : that.dateOfBirth != null) return false;
-        if (dtype != null ? !dtype.equals(that.dtype) : that.dtype != null) return false;
         if (email != null ? !email.equals(that.email) : that.email != null) return false;
         if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
         if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
@@ -129,7 +125,6 @@ public class UserEntity {
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (dateOfBirth != null ? dateOfBirth.hashCode() : 0);
-        result = 31 * result + (dtype != null ? dtype.hashCode() : 0);
         return result;
     }
 

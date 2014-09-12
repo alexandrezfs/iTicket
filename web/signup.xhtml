@@ -3,6 +3,7 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:pf="http://primefaces.org/ui"
                 template="layout.xhtml">
 
     <ui:define name="inBody">
@@ -18,37 +19,74 @@
                     <div class="row">
 
                         <div class="large-12 columns">
-                            <h:form>
+                            <h:form id="signup-form">
 
                                 <div class="row">
-                                    <div class="large-6 columns">
-                                        <h:inputText value="#{User.firstName}" p:placeholder="Firstname"/>
-                                    </div>
-                                    <div class="large-6 columns">
-                                        <h:inputText value="#{User.lastName}" p:placeholder="Lastname"/>
+                                    <div class="large-12 columns">
+                                        <h:messages styleClass="alert-box alert radius error-override" />
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="large-6 columns">
-                                        <h:inputText value="#{User.email}" p:placeholder="Email"/>
+                                        <h:inputText value="#{UserController.firstName}"
+                                                     p:placeholder="Firstname"
+                                                     required="true"
+                                                     label="Firstname"/>
                                     </div>
                                     <div class="large-6 columns">
-                                        <h:inputText value="#{User.password}" p:placeholder="Password"/>
+                                        <h:inputText value="#{UserController.lastName}"
+                                                     p:placeholder="Lastname"
+                                                     required="true"
+                                                     label="Lastname"/>
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="large-6 columns">
-                                        <h:inputText id="dateOfBirth" value="#{User.dateOfBirth}" p:placeholder="Date of birth" styleClass="dateOfBirthPicker"/>
+                                        <h:inputText id="username"
+                                                     value="#{UserController.username}"
+                                                     p:placeholder="Username"
+                                                     required="true"
+                                                     label="Username"/>
                                     </div>
                                     <div class="large-6 columns">
-                                        <h:outputLabel for="developer" value="Are you a developer ?"/>
-                                        <h:selectBooleanCheckbox id="developer" value="#{User.developer}"/>
+                                        <h:inputText value="#{UserController.email}"
+                                                     p:placeholder="Email"
+                                                     required="true"
+                                                     label="Email"/>
                                     </div>
                                 </div>
 
-                                <h:commandButton value="Sign up" action="#{userController.signup}" styleClass="button tiny radius"/>
+                                <div class="row">
+                                    <div class="large-6 columns">
+                                        <h:inputText value="#{UserController.password}"
+                                                     p:placeholder="Password"
+                                                     required="true"
+                                                     label="Password"/>
+                                    </div>
+                                    <div class="large-6 columns">
+                                        <h:inputText id="dateOfBirth"
+                                                     value="#{UserController.dateOfBirthString}"
+                                                     p:placeholder="Birthday"
+                                                     styleClass="dateOfBirthPicker"
+                                                     required="true"
+                                                     label="Birthday"/>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="large-12 columns">
+                                        <h:outputLabel for="developer" value="What's your profile ?"/>
+                                        <h:selectOneMenu id="developer" value="#{UserController.userType}">
+                                            <f:selectItem itemValue="DEVELOPER" itemLabel="Developer" />
+                                            <f:selectItem itemValue="PRODUCT_OWNER" itemLabel="Product owner" />
+                                            <f:selectItem itemValue="USER" itemLabel="Normal user" />
+                                        </h:selectOneMenu>
+                                    </div>
+                                </div>
+
+                                <h:commandButton value="Sign up" action="#{UserController.signup}" styleClass="button tiny radius"/>
 
                             </h:form>
                         </div>

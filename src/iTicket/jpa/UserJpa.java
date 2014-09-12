@@ -4,6 +4,8 @@ import iTicket.dao.UserDao;
 import iTicket.entities.DeveloperEntity;
 import iTicket.entities.ProductOwnerEntity;
 import iTicket.entities.UserEntity;
+import org.hibernate.Session;
+import iTicket.util.HibernateUtil;
 
 import java.util.ArrayList;
 
@@ -11,12 +13,60 @@ public class UserJpa implements UserDao {
 
     @Override
     public UserEntity addUser(UserEntity user) {
+
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+
+        session.beginTransaction();
+        session.save(user);
+        session.getTransaction().commit();
+
+        return user;
+    }
+
+    @Override
+    public DeveloperEntity addDeveloper(DeveloperEntity developer) {
+
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+
+        session.beginTransaction();
+        session.save(developer);
+        session.getTransaction().commit();
+
+        return developer;
+    }
+
+    @Override
+    public ProductOwnerEntity addProductOwner(ProductOwnerEntity productOwner) {
+
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+
+        session.beginTransaction();
+        session.save(productOwner);
+        session.getTransaction().commit();
+
+        return productOwner;
+    }
+
+    @Override
+    public UserEntity getUserByEmailAndPassword(String email, String password) {
         return null;
     }
 
     @Override
-    public UserEntity getByEmailAndPassword(String email, String password) {
-        return null;
+    public UserEntity getUserByEmail(String email) {
+
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+
+        session.beginTransaction();
+
+        UserEntity user = (UserEntity) session
+                .createQuery("select u from UserEntity u where u.email = :email")
+                .setParameter("email", email)
+                .uniqueResult();
+
+        session.getTransaction().commit();
+
+        return user;
     }
 
     @Override

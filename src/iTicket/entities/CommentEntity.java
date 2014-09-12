@@ -3,9 +3,6 @@ package iTicket.entities;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
-/**
- * Created by alexandrenguyen on 11/09/2014.
- */
 @Entity
 @Table(name = "comment", schema = "", catalog = "iTicket")
 public class CommentEntity {

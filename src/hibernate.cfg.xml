@@ -11,6 +11,9 @@
       <mapping class="iTicket.entities.CommentEntity"/>
       <mapping class="iTicket.entities.TicketEntity"/>
       <mapping class="iTicket.entities.UserEntity"/>
+      <mapping class="iTicket.entities.DeveloperEntity"/>
+      <mapping class="iTicket.entities.ProductOwnderEntity"/>
+      <mapping class="iTicket.entities.ProductOwnerEntity"/>
       <!-- DB schema will be updated if needed -->
     <!-- <property name="hbm2ddl.auto">update</property> -->
   </session-factory>

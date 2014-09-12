@@ -2,17 +2,58 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
                 template="layout.xhtml">
 
     <ui:define name="inBody">
 
-        <div class="row">
+        <div class="row" id="signup-page">
 
             <div class="large-12 columns">
 
                 <div class="panel">
 
-                    <h1>Sign up</h1>
+                    <h1><i class="fa fa-user"></i> Sign up</h1>
+
+                    <div class="row">
+
+                        <div class="large-12 columns">
+                            <h:form>
+
+                                <div class="row">
+                                    <div class="large-6 columns">
+                                        <h:inputText value="#{User.firstName}" p:placeholder="Firstname"/>
+                                    </div>
+                                    <div class="large-6 columns">
+                                        <h:inputText value="#{User.lastName}" p:placeholder="Lastname"/>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="large-6 columns">
+                                        <h:inputText value="#{User.email}" p:placeholder="Email"/>
+                                    </div>
+                                    <div class="large-6 columns">
+                                        <h:inputText value="#{User.password}" p:placeholder="Password"/>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="large-6 columns">
+                                        <h:inputText id="dateOfBirth" value="#{User.dateOfBirth}" p:placeholder="Date of birth" styleClass="dateOfBirthPicker"/>
+                                    </div>
+                                    <div class="large-6 columns">
+                                        <h:outputLabel for="developer" value="Are you a developer ?"/>
+                                        <h:selectBooleanCheckbox id="developer" value="#{User.developer}"/>
+                                    </div>
+                                </div>
+
+                                <h:commandButton value="Sign up" action="#{userController.signup}" styleClass="button tiny radius"/>
+
+                            </h:form>
+                        </div>
+
+                    </div>
 
                 </div>
 

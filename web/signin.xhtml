@@ -2,6 +2,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
                 template="layout.xhtml">
 
     <ui:define name="inBody">
@@ -12,7 +13,19 @@
 
                 <div class="panel">
 
-                    <h1>Sign in</h1>
+                    <h1><i class="fa fa-sign-in"></i> Sign in</h1>
+
+                    <div class="row">
+
+                        <div class="large-12 columns">
+                            <h:form>
+                                <h:inputText value="#{User.email}" p:placeholder="Email"/>
+                                <h:inputText value="#{User.password}" p:placeholder="Password"/>
+                                <h:commandButton value="Sign in" action="#{userController.login}" styleClass="button tiny radius"/>
+                            </h:form>
+                        </div>
+
+                    </div>
 
                 </div>
 

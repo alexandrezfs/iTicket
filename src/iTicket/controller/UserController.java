@@ -1,10 +1,12 @@
 package iTicket.controller;
 
+import iTicket.dao.UserDao;
 import iTicket.entities.DeveloperEntity;
 import iTicket.entities.ProductOwnerEntity;
 import iTicket.entities.UserEntity;
 import iTicket.jpa.UserJpa;
 import iTicket.template.UiBean;
+import iTicket.util.StaticValues;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -41,10 +43,27 @@ public class UserController implements Serializable {
     public String login() {
 
         session = request.getSession(true);
-        session.setAttribute("UserBean", "test");
 
-        ConfigurableNavigationHandler handler = (ConfigurableNavigationHandler) context.getApplication().getNavigationHandler();
-        handler.performNavigation("/index.xhtml");
+        UserDao uJ = new UserJpa();
+        UserEntity user = uJ.getUserByEmailAndPassword(this.email, this.password);
+
+        if(user == null) {
+
+            context.addMessage("signin-form", new FacesMessage("Authentication failed."));
+        }
+        else {
+
+            session.setAttribute(StaticValues.USER_ID_SESSION_ATTRIBUTE, user.getId());
+            new UiBean().displaySigninFlash();
+
+            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+
+            try {
+                ec.redirect(ec.getRequestContextPath() + "/index.xhtml");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
         return null;
     }

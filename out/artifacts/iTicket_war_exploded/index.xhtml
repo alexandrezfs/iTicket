@@ -25,6 +25,19 @@
                     </c:if>
                 </c:if>
 
+                <c:if test="#{ not empty signinFlash }">
+                    <c:if test="${ signinFlash == true }">
+                        <div data-alert="true" class="alert-box success radius">
+                            Welcome <h:outputText value="#{ CurrentUser.user.firstName }" />, You successfully logged in.
+                            <h:form>
+                                <h:commandLink value="x" styleClass="close">
+                                    <f:ajax listener="#{ uiBean.destroySignupFlash }" />
+                                </h:commandLink>
+                            </h:form>
+                        </div>
+                    </c:if>
+                </c:if>
+
                 <div class="panel">
 
                     <h1>Welcome on iTicket</h1>

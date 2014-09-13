@@ -1,5 +1,7 @@
 package iTicket.template;
 
+import iTicket.util.StaticValues;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -11,8 +13,6 @@ import java.io.Serializable;
 @RequestScoped
 public class UiBean implements Serializable {
 
-    public static String FLASH_SESSION_ID = "signupFlash";
-
     FacesContext context = FacesContext.getCurrentInstance();
     HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
     HttpSession session = request.getSession(true);
@@ -21,14 +21,25 @@ public class UiBean implements Serializable {
 
     public void displaySignupFlash() {
 
-        session.setAttribute(FLASH_SESSION_ID, true);
+        session.setAttribute(StaticValues.FLASH_SESSION_SIGNUP_ID, true);
 
     }
 
     public void destroySignupFlash() {
 
-        session.setAttribute(FLASH_SESSION_ID, null);
+        session.setAttribute(StaticValues.FLASH_SESSION_SIGNUP_ID, null);
 
     }
 
+    public void displaySigninFlash() {
+
+        session.setAttribute(StaticValues.FLASH_SESSION_SIGNIN_ID, true);
+
+    }
+
+    public void destroySigninFlash() {
+
+        session.setAttribute(StaticValues.FLASH_SESSION_SIGNIN_ID, null);
+
+    }
 }

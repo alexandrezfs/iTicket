@@ -49,7 +49,20 @@ public class UserJpa implements UserDao {
 
     @Override
     public UserEntity getUserByEmailAndPassword(String email, String password) {
-        return null;
+
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+
+        session.beginTransaction();
+
+        UserEntity user = (UserEntity) session
+                .createQuery("select u from UserEntity u where u.email = :email and u.password = :password")
+                .setParameter("email", email)
+                .setParameter("password", password)
+                .uniqueResult();
+
+        session.getTransaction().commit();
+
+        return user;
     }
 
     @Override
@@ -63,6 +76,20 @@ public class UserJpa implements UserDao {
                 .createQuery("select u from UserEntity u where u.email = :email")
                 .setParameter("email", email)
                 .uniqueResult();
+
+        session.getTransaction().commit();
+
+        return user;
+    }
+
+    @Override
+    public UserEntity getUserById(int user_id) {
+
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+
+        session.beginTransaction();
+
+        UserEntity user = (UserEntity) session.get(UserEntity.class, user_id);
 
         session.getTransaction().commit();
 

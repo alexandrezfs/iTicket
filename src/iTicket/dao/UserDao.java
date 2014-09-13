@@ -14,6 +14,7 @@ public interface UserDao extends Serializable {
     ProductOwnerEntity addProductOwner(ProductOwnerEntity productOwner);
     UserEntity getUserByEmailAndPassword(String email, String password);
     UserEntity getUserByEmail(String email);
+    UserEntity getUserById(int user_id);
     ArrayList<UserEntity> getUsers();
     ArrayList<DeveloperEntity> getDevelopers();
     ArrayList<ProductOwnerEntity> getProductOwners();

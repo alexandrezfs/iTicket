@@ -31,7 +31,20 @@
                             Welcome <h:outputText value="#{ CurrentUser.user.firstName }" />, You successfully logged in.
                             <h:form>
                                 <h:commandLink value="x" styleClass="close">
-                                    <f:ajax listener="#{ uiBean.destroySignupFlash }" />
+                                    <f:ajax listener="#{ uiBean.destroySigninFlash }" />
+                                </h:commandLink>
+                            </h:form>
+                        </div>
+                    </c:if>
+                </c:if>
+
+                <c:if test="#{ not empty addTicketFlash }">
+                    <c:if test="${ addTicketFlash == true }">
+                        <div data-alert="true" class="alert-box success radius">
+                            <h:outputText value="#{ CurrentUser.user.firstName }" />, you added a new ticket !
+                            <h:form>
+                                <h:commandLink value="x" styleClass="close">
+                                    <f:ajax listener="#{ uiBean.destroyAddTicketFlash }" />
                                 </h:commandLink>
                             </h:form>
                         </div>

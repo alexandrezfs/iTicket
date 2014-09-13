@@ -11,6 +11,12 @@
     </managed-bean>
 
     <managed-bean>
+        <managed-bean-name>TicketController</managed-bean-name>
+        <managed-bean-class>iTicket.controller.TicketController</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
         <managed-bean-name>UiBean</managed-bean-name>
         <managed-bean-class>iTicket.template.UiBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>

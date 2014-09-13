@@ -42,4 +42,15 @@ public class UiBean implements Serializable {
         session.setAttribute(StaticValues.FLASH_SESSION_SIGNIN_ID, null);
 
     }
-}
+
+    public void displayAddTicketFlash() {
+
+        session.setAttribute(StaticValues.FLASH_SESSION_ADDTICKET_ID, true);
+
+    }
+
+    public void destroyAddTicketFlash() {
+
+        session.setAttribute(StaticValues.FLASH_SESSION_ADDTICKET_ID, null);
+
+    }}

@@ -10,10 +10,11 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.Serializable;
 
 @ManagedBean
 @RequestScoped
-public class CurrentUser {
+public class CurrentUser implements Serializable {
 
     private UserEntity user;
 

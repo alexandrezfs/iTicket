@@ -3,6 +3,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:pf="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jstl/core"
       xmlns:h="http://java.sun.com/jsf/html">
 <h:head>
     <title>iTicket</title>
@@ -40,30 +41,45 @@
         </ul>
         <section class="top-bar-section">
 
-            <ul class="left">
-                <li class="divider"></li>
-                <li>
-                    <a href="allTickets.xhtml">All Tickets</a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <a href="addTicket.xhtml">Add Ticket</a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <a href="myTickets.xhtml">My Tickets</a>
-                </li>
-            </ul>
+            <c:if test="#{ not empty CurrentUser.user }">
+
+                <ul class="left">
+                    <li class="divider"></li>
+                    <li>
+                        <a href="allTickets.xhtml">All Tickets</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="addTicket.xhtml">Add Ticket</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="myTickets.xhtml">My Tickets</a>
+                    </li>
+                </ul>
+
+            </c:if>
 
             <ul class="right">
-                <li class="divider"></li>
-                <li>
-                    <a href="signin.xhtml"><i class="fa fa-sign-in"></i> Sign In</a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <a href="signup.xhtml"><i class="fa fa-user"></i> Sign Up</a>
-                </li>
+                <c:choose>
+                    <c:when test="#{ empty CurrentUser.user }">
+                        <li class="divider"></li>
+                        <li>
+                            <a href="signin.xhtml"><i class="fa fa-sign-in"></i> Sign In</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="signup.xhtml"><i class="fa fa-user"></i> Sign Up</a>
+                        </li>
+                    </c:when>
+                    <c:otherwise>
+                        <li>
+                            <a href="user.xhtml">
+                                <i class="fa fa-user"><h:outputText value=" #{ CurrentUser.user.firstName } #{ CurrentUser.user.lastName }"/></i>
+                            </a>
+                        </li>
+                    </c:otherwise>
+                </c:choose>
             </ul>
         </section>
     </nav>

@@ -27,9 +27,14 @@
                                     </div>
                                 </div>
 
-                                <h:inputText value="#{UserController.email}" p:placeholder="Email" required="true"/>
-                                <h:inputText value="#{UserController.password}" p:placeholder="Password" required="true"/>
+                                <h:outputLabel for="email" value="Email"/>
+                                <h:inputText id="email" value="#{UserController.email}" p:placeholder="Email" required="true"/>
+
+                                <h:outputLabel for="password" value="Password"/>
+                                <h:inputText id="password" value="#{UserController.password}" p:placeholder="Password" required="true"/>
+
                                 <h:commandButton value="Sign in" action="#{UserController.login}" styleClass="button tiny radius"/>
+
                             </h:form>
                         </div>
 

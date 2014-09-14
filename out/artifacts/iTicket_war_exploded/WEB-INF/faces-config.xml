@@ -7,24 +7,18 @@
     <managed-bean>
         <managed-bean-name>UserController</managed-bean-name>
         <managed-bean-class>iTicket.controller.UserController</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
+        <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
 
     <managed-bean>
         <managed-bean-name>TicketController</managed-bean-name>
         <managed-bean-class>iTicket.controller.TicketController</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
+        <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
 
     <managed-bean>
         <managed-bean-name>UiBean</managed-bean-name>
         <managed-bean-class>iTicket.template.UiBean</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
-
-    <managed-bean>
-        <managed-bean-name>CurrentUser</managed-bean-name>
-        <managed-bean-class>iTicket.session.CurrentUser</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 

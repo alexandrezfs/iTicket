@@ -6,6 +6,7 @@ import iTicket.entities.UserEntity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public interface UserDao extends Serializable {
 
@@ -15,8 +16,8 @@ public interface UserDao extends Serializable {
     UserEntity getUserByEmailAndPassword(String email, String password);
     UserEntity getUserByEmail(String email);
     UserEntity getUserById(int user_id);
-    ArrayList<UserEntity> getUsers();
-    ArrayList<DeveloperEntity> getDevelopers();
-    ArrayList<ProductOwnerEntity> getProductOwners();
+    List<UserEntity> getUsers();
+    List<DeveloperEntity> getDevelopers();
+    List<ProductOwnerEntity> getProductOwners();
 
 }

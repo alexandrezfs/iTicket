@@ -6,6 +6,7 @@ import iTicket.util.HibernateUtil;
 import org.hibernate.Session;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TicketJpa implements TicketDao {
 
@@ -22,12 +23,19 @@ public class TicketJpa implements TicketDao {
     }
 
     @Override
-    public ArrayList<TicketEntity> getAllTickets() {
-        return null;
+    public List<TicketEntity> getAllTickets() {
+
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+
+        session.beginTransaction();
+        List<TicketEntity> tickets =  session.createCriteria(TicketEntity.class).list();
+        session.getTransaction().commit();
+
+        return tickets;
     }
 
     @Override
-    public ArrayList<TicketEntity> getTicketsByStatus(String status) {
+    public List<TicketEntity> getTicketsByStatus(String status) {
         return null;
     }
 

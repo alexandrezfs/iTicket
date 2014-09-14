@@ -12,3 +12,11 @@
 .top-bar {
     margin-bottom: 20px;
 }
+
+.shuffleItem {
+    width: 25%;
+}
+
+.whiteTxt {
+    color: #ffffff;
+}

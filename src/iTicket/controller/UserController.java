@@ -1,5 +1,6 @@
 package iTicket.controller;
 
+import com.sun.faces.context.SessionMap;
 import iTicket.dao.UserDao;
 import iTicket.entities.DeveloperEntity;
 import iTicket.entities.ProductOwnerEntity;
@@ -15,9 +16,11 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import javax.ejb.SessionContext;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
@@ -25,12 +28,8 @@ import javax.servlet.http.HttpSession;
 import javax.faces.application.ConfigurableNavigationHandler;
 
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class UserController implements Serializable {
-
-    FacesContext context = FacesContext.getCurrentInstance();
-    HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-    HttpSession session = request.getSession(true);
 
     private String username;
     private String password;
@@ -40,20 +39,32 @@ public class UserController implements Serializable {
     private String dateOfBirthString;
     private String userType;
 
-    public String login() {
+    public void login() {
 
-        session = request.getSession(true);
+        ExternalContext eC = FacesContext.getCurrentInstance().getExternalContext();
 
         UserDao uJ = new UserJpa();
         UserEntity user = uJ.getUserByEmailAndPassword(this.email, this.password);
 
-        if(user == null) {
+        boolean userExists = true;
 
-            context.addMessage("signin-form", new FacesMessage("Authentication failed."));
+        try {
+            user.getId();
+        }
+        catch(Exception e) {
+            userExists = false;
+        }
+
+        if(!userExists) {
+
+            FacesContext.getCurrentInstance().addMessage("signin-form", new FacesMessage("Authentication failed."));
         }
         else {
 
-            session.setAttribute(StaticValues.USER_ID_SESSION_ATTRIBUTE, user.getId());
+            eC.getSessionMap().put(StaticValues.USER_ID_SESSION_ATTRIBUTE, user.getId());
+            eC.getSessionMap().put(StaticValues.USER_FIRSTNAME_SESSION_ATTRIBUTE, user.getFirstName());
+            eC.getSessionMap().put(StaticValues.USER_LASTNAME_SESSION_ATTRIBUTE, user.getLastName());
+
             new UiBean().displaySigninFlash();
 
             ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
@@ -65,10 +76,26 @@ public class UserController implements Serializable {
             }
         }
 
-        return null;
     }
 
-    public String signup() {
+    public void logout() {
+
+        ExternalContext eC = FacesContext.getCurrentInstance().getExternalContext();
+
+        eC.getSessionMap().put(StaticValues.USER_ID_SESSION_ATTRIBUTE, null);
+        eC.getSessionMap().put(StaticValues.USER_FIRSTNAME_SESSION_ATTRIBUTE, null);
+        eC.getSessionMap().put(StaticValues.USER_LASTNAME_SESSION_ATTRIBUTE, null);
+
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+
+        try {
+            ec.redirect(ec.getRequestContextPath() + "/index.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void signup() {
 
         Timestamp dateOfBirthTimestamp = new Timestamp(0);
 
@@ -86,7 +113,7 @@ public class UserController implements Serializable {
 
         if(uJ.getUserByEmail(this.email) != null) {
 
-            context.addMessage("signup-form", new FacesMessage("This e-mail address already exists !"));
+            FacesContext.getCurrentInstance().addMessage("signup-form", new FacesMessage("This e-mail address already exists !"));
 
         }
         else {
@@ -139,8 +166,6 @@ public class UserController implements Serializable {
             }
 
         }
-
-        return null;
     }
 
     public String getEmail() {

@@ -2,7 +2,6 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:pf="http://primefaces.org/ui"
                 xmlns:c="http://java.sun.com/jstl/core"
                 template="layout.xhtml">
 
@@ -28,7 +27,7 @@
                 <c:if test="#{ not empty signinFlash }">
                     <c:if test="${ signinFlash == true }">
                         <div data-alert="true" class="alert-box success radius">
-                            Welcome <h:outputText value="#{ CurrentUser.user.firstName }" />, You successfully logged in.
+                            Welcome <h:outputText value="#{ UserFirstnameSession }" />, You successfully logged in.
                             <h:form>
                                 <h:commandLink value="x" styleClass="close">
                                     <f:ajax listener="#{ uiBean.destroySigninFlash }" />
@@ -41,7 +40,7 @@
                 <c:if test="#{ not empty addTicketFlash }">
                     <c:if test="${ addTicketFlash == true }">
                         <div data-alert="true" class="alert-box success radius">
-                            <h:outputText value="#{ CurrentUser.user.firstName }" />, you added a new ticket !
+                            <h:outputText value="#{ UserFirstnameSession }" />, you added a new ticket !
                             <h:form>
                                 <h:commandLink value="x" styleClass="close">
                                     <f:ajax listener="#{ uiBean.destroyAddTicketFlash }" />

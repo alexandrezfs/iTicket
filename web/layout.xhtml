@@ -2,7 +2,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:pf="http://primefaces.org/ui"
       xmlns:c="http://java.sun.com/jstl/core"
       xmlns:h="http://java.sun.com/jsf/html">
 <h:head>
@@ -17,7 +16,7 @@
     <script src="assets/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="assets/bower_components/modernizr/modernizr.js"></script>
     <script src="assets/bower_components/foundation/js/foundation.min.js"></script>
-    <script src="assets/bower_components/isotope/dist/isotope.pkgd.min.js"></script>
+    <script src="assets/bower_components/shufflejs/dist/jquery.shuffle.min.js"></script>
     <script src="assets/bower_components/fancybox/source/jquery.fancybox.pack.js"></script>
     <script src="assets/bower_components/datetimepicker/jquery.datetimepicker.js"></script>
     <script src="assets/js/main.js"></script>
@@ -41,7 +40,7 @@
         </ul>
         <section class="top-bar-section">
 
-            <c:if test="#{ not empty CurrentUser.user }">
+            <c:if test="#{ not empty UserIdSession }">
 
                 <ul class="left">
                     <li class="divider"></li>
@@ -62,7 +61,7 @@
 
             <ul class="right">
                 <c:choose>
-                    <c:when test="#{ empty CurrentUser.user }">
+                    <c:when test="#{ empty UserIdSession }">
                         <li class="divider"></li>
                         <li>
                             <a href="signin.xhtml"><i class="fa fa-sign-in"></i> Sign In</a>
@@ -74,9 +73,11 @@
                     </c:when>
                     <c:otherwise>
                         <li>
-                            <a href="user.xhtml">
-                                <i class="fa fa-user"><h:outputText value=" #{ CurrentUser.user.firstName } #{ CurrentUser.user.lastName }"/></i>
-                            </a>
+                            <h:form>
+                                <h:commandLink action="#{ UserController.logout }" styleClass="whiteTxt">
+                                    <h:outputText value=" #{ UserFirstnameSession } #{ UserLastnameSession }"/> <i class="fa fa-sign-out"></i>
+                                </h:commandLink>
+                            </h:form>
                         </li>
                     </c:otherwise>
                 </c:choose>

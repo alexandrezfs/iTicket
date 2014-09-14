@@ -2,7 +2,6 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:pf="http://primefaces.org/ui"
                 xmlns:c="http://java.sun.com/jstl/core"
                 template="layout.xhtml">
 
@@ -12,11 +11,23 @@
 
             <div class="large-12 columns">
 
-                <div class="panel">
+                <h1>All Tickets</h1>
 
-                    <h1>All Tickets</h1>
+            </div>
 
-                </div>
+        </div>
+
+        <div class="row">
+
+            <div class="large-12 columns" id="allTickets">
+
+                <c:forEach var="ticket" items="#{ TicketController.allTickets }">
+
+                    <div class="shuffleItem panel">
+                        <h:outputText value="#{ ticket.description }"/>
+                    </div>
+
+                </c:forEach>
 
             </div>
 

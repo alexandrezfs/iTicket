@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import iTicket.util.HibernateUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class UserJpa implements UserDao {
 
@@ -97,17 +98,17 @@ public class UserJpa implements UserDao {
     }
 
     @Override
-    public ArrayList<UserEntity> getUsers() {
+    public List<UserEntity> getUsers() {
         return null;
     }
 
     @Override
-    public ArrayList<DeveloperEntity> getDevelopers() {
+    public List<DeveloperEntity> getDevelopers() {
         return null;
     }
 
     @Override
-    public ArrayList<ProductOwnerEntity> getProductOwners() {
+    public List<ProductOwnerEntity> getProductOwners() {
         return null;
     }
 }

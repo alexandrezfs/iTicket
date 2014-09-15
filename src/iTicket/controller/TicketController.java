@@ -31,6 +31,7 @@ public class TicketController implements Serializable {
     private TicketEntity ticketToShow;
     private TicketEntity ticketToEdit;
     private List<TicketEntity> allTickets = new ArrayList<TicketEntity>();
+    private List<TicketEntity> newTickets = new ArrayList<TicketEntity>();
     private CommentEntity commentToAdd = new CommentEntity();
 
     public TicketController() {
@@ -190,5 +191,16 @@ public class TicketController implements Serializable {
 
     public void setTicketToShow(TicketEntity ticketToShow) {
         this.ticketToShow = ticketToShow;
+    }
+
+    public List<TicketEntity> getNewTickets() {
+
+        this.newTickets = new TicketJpa().getNewTickets();
+
+        return newTickets;
+    }
+
+    public void setNewTickets(List<TicketEntity> newTickets) {
+        this.newTickets = newTickets;
     }
 }

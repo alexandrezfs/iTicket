@@ -4,6 +4,7 @@ import iTicket.dao.TicketDao;
 import iTicket.entities.TicketEntity;
 import iTicket.entities.UserEntity;
 import iTicket.util.HibernateUtil;
+import iTicket.util.StaticValues;
 import org.hibernate.Session;
 import sun.security.krb5.internal.Ticket;
 
@@ -22,6 +23,23 @@ public class TicketJpa implements TicketDao {
         session.getTransaction().commit();
 
         return ticket;
+    }
+
+    @Override
+    public List<TicketEntity> getNewTickets() {
+
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+
+        session.beginTransaction();
+
+        List<TicketEntity> tickets = session
+                .createQuery("select t from TicketEntity t WHERE t.status = :status ORDER BY t.creationDate ASC")
+                .setParameter("status", StaticValues.TICKET_STATUS_NEW)
+                .list();
+
+        session.getTransaction().commit();
+
+        return tickets;
     }
 
     @Override

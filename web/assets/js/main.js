@@ -4,9 +4,13 @@ $(document).ready(function() {
         itemSelector : '.shuffleItem'
     });
 
+    $("#newTickets").shuffle({
+        itemSelector : '.shuffleItem'
+    });
+
     if($("#signup-page").length > 0) {
 
-        jQuery('.dateOfBirthPicker').datetimepicker({
+        $('.dateOfBirthPicker').datetimepicker({
             timepicker: false,
             format:'Y-m-d'
         });

@@ -9,6 +9,7 @@ public interface TicketDao {
 
     TicketEntity addTicket(TicketEntity ticket);
     List<TicketEntity> getAllTickets();
+    List<TicketEntity> getNewTickets();
     List<TicketEntity> getTicketsByStatus(String status);
     TicketEntity getTicketById(int ticket_id);
     TicketEntity deleteTicketById(int ticket_id);

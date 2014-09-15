@@ -1,0 +1,72 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:c="http://java.sun.com/jstl/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                template="layout.xhtml">
+
+    <ui:define name="inBody">
+
+        <div class="row">
+
+            <div class="large-12 columns">
+
+                <div class="panel">
+
+                    <h1><i class="fa fa-ticket"></i> Ticket #<h:outputText value="#{ TicketController.ticketToShow.id }"/></h1>
+
+                    <h2><h:outputText value=" #{ TicketController.ticketToShow.summary }"/></h2>
+
+                    <hr />
+                    <div>
+                        <i class="fa fa-user"></i><h:outputText value=" Owned By : #{ TicketController.ticketToShow.userByUserId.firstName } #{ TicketController.ticketToShow.userByUserId.lastName }"/>
+                    </div>
+                    <hr />
+                    <div>
+                        <i class="fa fa-clock-o"></i><h:outputText value=" #{ TicketController.ticketToShow.creationDate }"/>
+                    </div>
+                    <hr />
+                    <div>
+                        <i class="fa fa-ticket"></i>
+                        <h:outputText value=" #{ TicketController.ticketToShow.description }"/>
+                    </div>
+                    <hr />
+                    <div>
+                        <i class="fa fa-level-up"></i> Priority :
+                        <h:outputText value="#{ TicketController.ticketToShow.priority }"/>
+                    </div>
+                    <hr />
+                    <div>
+                        <i class="fa fa-refresh"></i> Status :
+                        <h:outputText value="#{ TicketController.ticketToShow.status }"/>
+                    </div>
+                    <hr />
+
+                    <h:form>
+                        <c:if test="#{ UserType == 'Developer' }">
+                            <c:choose>
+                                <c:when test="#{ TicketController.ticketToShow.status == 'IN PROGRESS' }">
+                                    <h:commandButton value="DONE" type="submit" action="#{ TicketController.ticketToDone }" styleClass="button tiny success" />
+                                </c:when>
+                                <c:otherwise>
+                                    <h:commandButton value="WORKING" type="submit" action="#{ TicketController.ticketToInProgress }" styleClass="button tiny" />
+                                </c:otherwise>
+                            </c:choose>
+                        </c:if>
+
+                        <c:if test="#{ UserSession.id == TicketController.ticketToShow.userByUserId.id }">
+                            <h:commandButton value="EDIT TICKET" type="submit" action="#{ TicketController.goToEditTicket }" styleClass="button tiny" />
+                            <h:commandButton value="DELETE" type="submit" action="#{ TicketController.deleteTicket }" styleClass="button tiny alert" />
+                        </c:if>
+                    </h:form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </ui:define>
+
+</ui:composition>

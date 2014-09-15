@@ -2,9 +2,8 @@ package iTicket.util;
 
 public class StaticValues {
 
-    public static String USER_ID_SESSION_ATTRIBUTE = "UserIdSession";
-    public static String USER_FIRSTNAME_SESSION_ATTRIBUTE = "UserFirstnameSession";
-    public static String USER_LASTNAME_SESSION_ATTRIBUTE = "UserLastnameSession";
+    public static String USER_SESSION_ATTRIBUTE = "UserSession";
+    public static String USER_TYPE_SESSION_ATTRIBUTE = "UserType";
     public static String FLASH_SESSION_SIGNUP_ID = "signupFlash";
     public static String FLASH_SESSION_SIGNIN_ID = "signinFlash";
     public static String FLASH_SESSION_ADDTICKET_ID = "addTicketFlash";

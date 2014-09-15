@@ -7,6 +7,7 @@ import java.util.Collection;
 @Entity
 @Table(name = "user", schema = "", catalog = "iTicket")
 public class UserEntity {
+
     private int id;
     private String username;
     private String password;

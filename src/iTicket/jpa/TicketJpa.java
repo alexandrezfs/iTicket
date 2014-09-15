@@ -2,8 +2,10 @@ package iTicket.jpa;
 
 import iTicket.dao.TicketDao;
 import iTicket.entities.TicketEntity;
+import iTicket.entities.UserEntity;
 import iTicket.util.HibernateUtil;
 import org.hibernate.Session;
+import sun.security.krb5.internal.Ticket;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +30,11 @@ public class TicketJpa implements TicketDao {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 
         session.beginTransaction();
-        List<TicketEntity> tickets =  session.createCriteria(TicketEntity.class).list();
+
+        List<TicketEntity> tickets = session
+                .createQuery("select t from TicketEntity t ORDER BY t.creationDate ASC")
+                .list();
+
         session.getTransaction().commit();
 
         return tickets;
@@ -40,13 +46,49 @@ public class TicketJpa implements TicketDao {
     }
 
     @Override
-    public void removeAllTickets() {
+    public TicketEntity getTicketById(int ticket_id) {
 
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+
+        session.beginTransaction();
+
+        TicketEntity ticket = (TicketEntity) session.get(TicketEntity.class, ticket_id);
+
+        session.getTransaction().commit();
+
+        return ticket;
     }
 
     @Override
-    public TicketEntity getTicketById(int ticket_id) {
-        return null;
+    public TicketEntity deleteTicketById(int ticket_id) {
+
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+
+        session.beginTransaction();
+
+        TicketEntity ticket = (TicketEntity) session.load(TicketEntity.class, ticket_id);
+        HibernateUtil.getSessionFactory().getCurrentSession().delete(ticket);
+
+        session.getTransaction().commit();
+
+        return ticket;
+    }
+
+    @Override
+    public TicketEntity changeTicketStatus(int ticket_id, String newStatus) {
+
+        TicketEntity ticket = this.getTicketById(ticket_id);
+        ticket.setStatus(newStatus);
+
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+
+        session.beginTransaction();
+
+        session.update(ticket);
+
+        session.getTransaction().commit();
+
+        return ticket;
     }
 
 }

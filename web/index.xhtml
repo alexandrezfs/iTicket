@@ -27,7 +27,7 @@
                 <c:if test="#{ not empty signinFlash }">
                     <c:if test="${ signinFlash == true }">
                         <div data-alert="true" class="alert-box success radius">
-                            Welcome <h:outputText value="#{ UserFirstnameSession }" />, You successfully logged in.
+                            Welcome <h:outputText value="${ UserSession.firstName }" />, You successfully logged in.
                             <h:form>
                                 <h:commandLink value="x" styleClass="close">
                                     <f:ajax listener="#{ uiBean.destroySigninFlash }" />
@@ -40,7 +40,7 @@
                 <c:if test="#{ not empty addTicketFlash }">
                     <c:if test="${ addTicketFlash == true }">
                         <div data-alert="true" class="alert-box success radius">
-                            <h:outputText value="#{ UserFirstnameSession }" />, you added a new ticket !
+                            <h:outputText value="${ UserSession.firstName }" />, you added a new ticket !
                             <h:form>
                                 <h:commandLink value="x" styleClass="close">
                                     <f:ajax listener="#{ uiBean.destroyAddTicketFlash }" />

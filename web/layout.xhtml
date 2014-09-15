@@ -40,7 +40,7 @@
         </ul>
         <section class="top-bar-section">
 
-            <c:if test="#{ not empty UserIdSession }">
+            <c:if test="#{ not empty UserSession }">
 
                 <ul class="left">
                     <li class="divider"></li>
@@ -49,8 +49,14 @@
                     </li>
                     <li class="divider"></li>
                     <li>
-                        <a href="addTicket.xhtml">Add Ticket</a>
+                        <a href="newTickets.xhtml">New Tickets</a>
                     </li>
+                    <li class="divider"></li>
+                    <c:if test="#{ UserType == 'ProductOwner' }">
+                        <li>
+                            <a href="addTicket.xhtml">Add Ticket</a>
+                        </li>
+                    </c:if>
                     <li class="divider"></li>
                     <li>
                         <a href="myTickets.xhtml">My Tickets</a>
@@ -61,7 +67,7 @@
 
             <ul class="right">
                 <c:choose>
-                    <c:when test="#{ empty UserIdSession }">
+                    <c:when test="#{ empty UserSession }">
                         <li class="divider"></li>
                         <li>
                             <a href="signin.xhtml"><i class="fa fa-sign-in"></i> Sign In</a>
@@ -73,9 +79,15 @@
                     </c:when>
                     <c:otherwise>
                         <li>
+                            <a href="#">
+                                <h:outputText value=" ${ UserSession.firstName } ${ UserSession.lastName } [ ${ UserType } ]"/>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
                             <h:form>
-                                <h:commandLink action="#{ UserController.logout }" styleClass="whiteTxt">
-                                    <h:outputText value=" #{ UserFirstnameSession } #{ UserLastnameSession }"/> <i class="fa fa-sign-out"></i>
+                                <h:commandLink action="#{ UserController.logout }" styleClass="signOutBtn">
+                                    Log out <i class="fa fa-sign-out"></i>
                                 </h:commandLink>
                             </h:form>
                         </li>

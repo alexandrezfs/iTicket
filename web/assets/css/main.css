@@ -14,9 +14,14 @@
 }
 
 .shuffleItem {
-    width: 25%;
+    width: 23.6666666%;
+    margin: 0;
 }
 
-.whiteTxt {
+.signOutBtn {
+    color: #ffffff;
+}
+
+.signOutBtn:hover {
     color: #ffffff;
 }

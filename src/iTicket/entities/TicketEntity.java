@@ -7,6 +7,7 @@ import java.util.Collection;
 @Entity
 @Table(name = "ticket", schema = "", catalog = "iTicket")
 public class TicketEntity {
+
     private int id;
     private String summary;
     private String description;

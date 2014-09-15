@@ -46,24 +46,33 @@ public class UserController implements Serializable {
         UserDao uJ = new UserJpa();
         UserEntity user = uJ.getUserByEmailAndPassword(this.email, this.password);
 
-        boolean userExists = true;
-
-        try {
-            user.getId();
-        }
-        catch(Exception e) {
-            userExists = false;
-        }
-
-        if(!userExists) {
+        if(user == null) {
 
             FacesContext.getCurrentInstance().addMessage("signin-form", new FacesMessage("Authentication failed."));
         }
         else {
 
-            eC.getSessionMap().put(StaticValues.USER_ID_SESSION_ATTRIBUTE, user.getId());
-            eC.getSessionMap().put(StaticValues.USER_FIRSTNAME_SESSION_ATTRIBUTE, user.getFirstName());
-            eC.getSessionMap().put(StaticValues.USER_LASTNAME_SESSION_ATTRIBUTE, user.getLastName());
+            String userType = null;
+            String className = user.getClass().getName();
+
+            if(className.equals("iTicket.entities.DeveloperEntity")) {
+
+                userType = "Developer";
+
+            }
+            else if (className.equals("iTicket.entities.UserEntity")) {
+
+                userType = "Normal User";
+
+            }
+            else if (className.equals("iTicket.entities.ProductOwnerEntity")) {
+
+                userType = "Product Owner";
+
+            }
+
+            eC.getSessionMap().put(StaticValues.USER_SESSION_ATTRIBUTE, user);
+            eC.getSessionMap().put(StaticValues.USER_TYPE_SESSION_ATTRIBUTE, userType);
 
             new UiBean().displaySigninFlash();
 
@@ -82,9 +91,8 @@ public class UserController implements Serializable {
 
         ExternalContext eC = FacesContext.getCurrentInstance().getExternalContext();
 
-        eC.getSessionMap().put(StaticValues.USER_ID_SESSION_ATTRIBUTE, null);
-        eC.getSessionMap().put(StaticValues.USER_FIRSTNAME_SESSION_ATTRIBUTE, null);
-        eC.getSessionMap().put(StaticValues.USER_LASTNAME_SESSION_ATTRIBUTE, null);
+        eC.getSessionMap().put(StaticValues.USER_SESSION_ATTRIBUTE, null);
+        eC.getSessionMap().put(StaticValues.USER_TYPE_SESSION_ATTRIBUTE, null);
 
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 

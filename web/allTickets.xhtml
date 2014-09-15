@@ -24,7 +24,31 @@
                 <c:forEach var="ticket" items="#{ TicketController.allTickets }">
 
                     <div class="shuffleItem panel">
-                        <h:outputText value="#{ ticket.description }"/>
+                        <div>
+                            <i class="fa fa-sort-numeric-asc"></i><h:outputText value=" Ticket ID : #{ ticket.id }"/>
+                        </div>
+                        <hr />
+                        <div>
+                            <i class="fa fa-clock-o"></i><h:outputText value=" #{ ticket.creationDate }"/>
+                        </div>
+                        <hr />
+                        <div>
+                            <i class="fa fa-ticket"></i> <h:outputText value=" #{ ticket.summary }"/>
+                        </div>
+                        <hr />
+                        <div>
+                            <i class="fa fa-level-up"></i> Priority :
+                            <h:outputText value="#{ ticket.priority }"/>
+                        </div>
+                        <hr />
+                        <div>
+                            <i class="fa fa-refresh"></i> Status :
+                            <h:outputText value="#{ ticket.status }"/>
+                        </div>
+                        <hr />
+                        <h:form>
+                            <h:commandButton value="View Details" type="submit" action="#{ TicketController.showTicket(ticket.id) }" styleClass="button tiny" />
+                        </h:form>
                     </div>
 
                 </c:forEach>

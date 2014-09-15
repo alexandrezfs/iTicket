@@ -16,6 +16,34 @@
 
                     <h1>Edit ticket</h1>
 
+                    <h:form>
+
+                        <div class="row">
+                            <div class="large-12 columns">
+                                <h:messages styleClass="alert-box alert radius error-override" />
+                            </div>
+                        </div>
+
+                        <h:outputLabel for="summary" value="Summary"/>
+                        <h:inputText id="summary" value="#{ TicketController.ticketToEdit.summary }" p:placeholder="Summary" required="true"/>
+
+                        <h:outputLabel for="description" value="Description"/>
+                        <h:inputTextarea id="description" value="#{ TicketController.ticketToEdit.description }" p:placeholder="Description" required="true"/>
+
+                        <h:outputLabel for="priority" value="Priority"/>
+                        <h:selectOneMenu id="priority" value="#{ TicketController.ticketToEdit.priority }">
+                            <f:selectItem itemValue="TRIVIAL" itemLabel="Trivial" />
+                            <f:selectItem itemValue="MINOR" itemLabel="Minor" />
+                            <f:selectItem itemValue="MAJOR" itemLabel="Major" />
+                            <f:selectItem itemValue="CRITICAL" itemLabel="Critical" />
+                            <f:selectItem itemValue="BLOCKER" itemLabel="Blocker" />
+                        </h:selectOneMenu>
+
+                        <h:commandButton value="Edit ticket" action="#{ TicketController.editTicket }" styleClass="button tiny radius"/>
+
+                    </h:form>
+
+
                 </div>
 
             </div>

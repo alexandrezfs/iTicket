@@ -13,5 +13,6 @@ public interface TicketDao {
     TicketEntity getTicketById(int ticket_id);
     TicketEntity deleteTicketById(int ticket_id);
     TicketEntity changeTicketStatus(int ticket_id, String newStatus);
+    TicketEntity editTicket(TicketEntity ticket);
 
 }

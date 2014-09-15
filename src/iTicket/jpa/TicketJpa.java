@@ -91,4 +91,18 @@ public class TicketJpa implements TicketDao {
         return ticket;
     }
 
+    @Override
+    public TicketEntity editTicket(TicketEntity ticket) {
+
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+
+        session.beginTransaction();
+
+        session.update(ticket);
+
+        session.getTransaction().commit();
+
+        return ticket;
+    }
+
 }

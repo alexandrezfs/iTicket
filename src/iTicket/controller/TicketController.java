@@ -29,6 +29,7 @@ public class TicketController implements Serializable {
 
     private TicketEntity ticket = new TicketEntity();
     private TicketEntity ticketToShow;
+    private TicketEntity ticketToEdit;
     private List<TicketEntity> allTickets = new ArrayList<TicketEntity>();
     private CommentEntity commentToAdd = new CommentEntity();
 
@@ -44,6 +45,7 @@ public class TicketController implements Serializable {
         if(request.getParameter("ticket_id") != null) {
 
             this.ticketToShow = new TicketJpa().getTicketById(Integer.parseInt(request.getParameter("ticket_id")));
+            this.ticketToEdit = new TicketJpa().getTicketById(Integer.parseInt(request.getParameter("ticket_id")));
 
         }
 
@@ -116,6 +118,19 @@ public class TicketController implements Serializable {
 
     }
 
+    public void editTicket() {
+
+        new TicketJpa().editTicket(this.ticketToEdit);
+
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+
+        try {
+            ec.redirect(ec.getRequestContextPath() + "/index.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void deleteTicket() {
 
         new TicketJpa().deleteTicketById(this.ticketToShow.getId());
@@ -155,6 +170,14 @@ public class TicketController implements Serializable {
         this.allTickets = new TicketJpa().getAllTickets();
 
         return allTickets;
+    }
+
+    public TicketEntity getTicketToEdit() {
+        return ticketToEdit;
+    }
+
+    public void setTicketToEdit(TicketEntity ticketToEdit) {
+        this.ticketToEdit = ticketToEdit;
     }
 
     public void setAllTickets(List<TicketEntity> allTickets) {

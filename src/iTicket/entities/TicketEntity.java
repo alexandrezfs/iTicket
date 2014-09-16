@@ -3,6 +3,7 @@ package iTicket.entities;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.Set;
 
 @Entity
 @Table(name = "ticket", schema = "", catalog = "iTicket")
@@ -15,7 +16,7 @@ public class TicketEntity {
     private String status;
     private Timestamp creationDate;
     private int userId;
-    private Collection<CommentEntity> commentsById;
+    private Set<CommentEntity> commentsById;
     private UserEntity userByUserId;
 
     @Id
@@ -108,12 +109,12 @@ public class TicketEntity {
         return result;
     }
 
-    @OneToMany(mappedBy = "ticketByTicketId")
-    public Collection<CommentEntity> getCommentsById() {
+    @OneToMany(mappedBy = "ticketByTicketId", fetch = FetchType.EAGER)
+    public Set<CommentEntity> getCommentsById() {
         return commentsById;
     }
 
-    public void setCommentsById(Collection<CommentEntity> commentsById) {
+    public void setCommentsById(Set<CommentEntity> commentsById) {
         this.commentsById = commentsById;
     }
 

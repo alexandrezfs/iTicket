@@ -6,7 +6,6 @@ import iTicket.entities.UserEntity;
 import iTicket.jpa.CommentJpa;
 import iTicket.jpa.TicketJpa;
 import iTicket.jpa.UserJpa;
-import iTicket.template.UiBean;
 import iTicket.util.StaticValues;
 
 import javax.annotation.PostConstruct;
@@ -19,9 +18,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @ManagedBean
 @ViewScoped
@@ -32,6 +29,7 @@ public class TicketController implements Serializable {
     private TicketEntity ticketToEdit;
     private List<TicketEntity> allTickets = new ArrayList<TicketEntity>();
     private List<TicketEntity> newTickets = new ArrayList<TicketEntity>();
+    private Set<TicketEntity> myTickets = new LinkedHashSet<TicketEntity>();
     private CommentEntity commentToAdd = new CommentEntity();
 
     public TicketController() {
@@ -64,8 +62,6 @@ public class TicketController implements Serializable {
 
         tJ.addTicket(this.ticket);
 
-        new UiBean().displayAddTicketFlash();
-
         try {
             eC.redirect(eC.getRequestContextPath() + "/index.xhtml");
         } catch (IOException e) {
@@ -77,10 +73,10 @@ public class TicketController implements Serializable {
 
     public void showTicket(int ticket_id) {
 
-        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        ExternalContext eC = FacesContext.getCurrentInstance().getExternalContext();
 
         try {
-            ec.redirect(ec.getRequestContextPath() + "/showTicket.xhtml?ticket_id=" + ticket_id);
+            eC.redirect(eC.getRequestContextPath() + "/showTicket.xhtml?ticket_id=" + ticket_id);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -202,5 +198,24 @@ public class TicketController implements Serializable {
 
     public void setNewTickets(List<TicketEntity> newTickets) {
         this.newTickets = newTickets;
+    }
+
+    public Set<TicketEntity> getMyTickets() {
+
+        ExternalContext eC = FacesContext.getCurrentInstance().getExternalContext();
+
+        if(eC.getSessionMap().get(StaticValues.USER_SESSION_ATTRIBUTE) != null) {
+
+            UserEntity user = (UserEntity) eC.getSessionMap().get(StaticValues.USER_SESSION_ATTRIBUTE);
+
+            this.myTickets = user.getTicketsById();
+
+        }
+
+        return myTickets;
+    }
+
+    public void setMyTickets(Set<TicketEntity> myTickets) {
+        this.myTickets = myTickets;
     }
 }

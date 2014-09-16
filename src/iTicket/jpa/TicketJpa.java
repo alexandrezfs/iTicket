@@ -6,6 +6,7 @@ import iTicket.entities.UserEntity;
 import iTicket.util.HibernateUtil;
 import iTicket.util.StaticValues;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import sun.security.krb5.internal.Ticket;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class TicketJpa implements TicketDao {
         session.beginTransaction();
 
         List<TicketEntity> tickets = session
-                .createQuery("select t from TicketEntity t WHERE t.status = :status ORDER BY t.creationDate ASC")
+                .createQuery("select t from TicketEntity t WHERE t.status = :status ORDER BY t.creationDate DESC")
                 .setParameter("status", StaticValues.TICKET_STATUS_NEW)
                 .list();
 

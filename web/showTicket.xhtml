@@ -55,7 +55,7 @@
                             </c:choose>
                         </c:if>
 
-                        <c:if test="#{ UserSession.id == TicketController.ticketToShow.userByUserId.id }">
+                        <c:if test="#{ UserSession.id == TicketController.ticketToShow.userByUserId.id and UserType == 'ProductOwner' }">
                             <h:commandButton value="EDIT TICKET" type="submit" action="#{ TicketController.goToEditTicket }" styleClass="button tiny" />
                             <h:commandButton value="DELETE" type="submit" action="#{ TicketController.deleteTicket }" styleClass="button tiny alert" />
                         </c:if>

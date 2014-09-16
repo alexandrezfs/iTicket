@@ -6,7 +6,6 @@ import iTicket.entities.DeveloperEntity;
 import iTicket.entities.ProductOwnerEntity;
 import iTicket.entities.UserEntity;
 import iTicket.jpa.UserJpa;
-import iTicket.template.UiBean;
 import iTicket.util.StaticValues;
 
 import java.io.IOException;
@@ -73,8 +72,6 @@ public class UserController implements Serializable {
 
             eC.getSessionMap().put(StaticValues.USER_SESSION_ATTRIBUTE, user);
             eC.getSessionMap().put(StaticValues.USER_TYPE_SESSION_ATTRIBUTE, userType);
-
-            new UiBean().displaySigninFlash();
 
             ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 
@@ -162,8 +159,6 @@ public class UserController implements Serializable {
                 ));
 
             }
-
-            new UiBean().displaySignupFlash();
 
             ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 

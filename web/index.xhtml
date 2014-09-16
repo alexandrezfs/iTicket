@@ -11,45 +11,6 @@
 
             <div class="large-12 columns">
 
-                <c:if test="#{ not empty signupFlash }">
-                    <c:if test="${ signupFlash == true }">
-                        <div data-alert="true" class="alert-box success radius">
-                            You successfully signed up ! You can now <a href="signin.xhtml">log in</a>.
-                            <h:form>
-                                <h:commandLink value="x" styleClass="close">
-                                    <f:ajax listener="#{ uiBean.destroySignupFlash }" />
-                                </h:commandLink>
-                            </h:form>
-                        </div>
-                    </c:if>
-                </c:if>
-
-                <c:if test="#{ not empty signinFlash }">
-                    <c:if test="${ signinFlash == true }">
-                        <div data-alert="true" class="alert-box success radius">
-                            Welcome <h:outputText value="${ UserSession.firstName }" />, You successfully logged in.
-                            <h:form>
-                                <h:commandLink value="x" styleClass="close">
-                                    <f:ajax listener="#{ uiBean.destroySigninFlash }" />
-                                </h:commandLink>
-                            </h:form>
-                        </div>
-                    </c:if>
-                </c:if>
-
-                <c:if test="#{ not empty addTicketFlash }">
-                    <c:if test="${ addTicketFlash == true }">
-                        <div data-alert="true" class="alert-box success radius">
-                            <h:outputText value="${ UserSession.firstName }" />, you added a new ticket !
-                            <h:form>
-                                <h:commandLink value="x" styleClass="close">
-                                    <f:ajax listener="#{ uiBean.destroyAddTicketFlash }" />
-                                </h:commandLink>
-                            </h:form>
-                        </div>
-                    </c:if>
-                </c:if>
-
                 <div class="panel">
 
                     <h1>Welcome on iTicket</h1>

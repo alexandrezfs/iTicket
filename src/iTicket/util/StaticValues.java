@@ -4,9 +4,6 @@ public class StaticValues {
 
     public static String USER_SESSION_ATTRIBUTE = "UserSession";
     public static String USER_TYPE_SESSION_ATTRIBUTE = "UserType";
-    public static String FLASH_SESSION_SIGNUP_ID = "signupFlash";
-    public static String FLASH_SESSION_SIGNIN_ID = "signinFlash";
-    public static String FLASH_SESSION_ADDTICKET_ID = "addTicketFlash";
     public static String TICKET_PRIORITY_TRIVIAL = "TRIVIAL";
     public static String TICKET_PRIORITY_MINOR = "MINOR";
     public static String TICKET_PRIORITY_MAJOR = "MAJOR";

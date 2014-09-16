@@ -63,7 +63,7 @@ public class TicketController implements Serializable {
         tJ.addTicket(this.ticket);
 
         try {
-            eC.redirect(eC.getRequestContextPath() + "/index.xhtml");
+            eC.redirect(eC.getRequestContextPath() + "/myTickets.xhtml");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -122,7 +122,7 @@ public class TicketController implements Serializable {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 
         try {
-            ec.redirect(ec.getRequestContextPath() + "/index.xhtml");
+            ec.redirect(ec.getRequestContextPath() + "/myTickets.xhtml");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -135,7 +135,7 @@ public class TicketController implements Serializable {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 
         try {
-            ec.redirect(ec.getRequestContextPath() + "/index.xhtml");
+            ec.redirect(ec.getRequestContextPath() + "/myTickets.xhtml");
         } catch (IOException e) {
             e.printStackTrace();
         }

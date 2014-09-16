@@ -76,7 +76,7 @@ public class UserController implements Serializable {
             ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 
             try {
-                ec.redirect(ec.getRequestContextPath() + "/index.xhtml");
+                ec.redirect(ec.getRequestContextPath() + "/newTickets.xhtml");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -163,7 +163,7 @@ public class UserController implements Serializable {
             ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 
             try {
-                ec.redirect(ec.getRequestContextPath() + "/index.xhtml");
+                ec.redirect(ec.getRequestContextPath() + "/login.xhtml");
             } catch (IOException e) {
                 e.printStackTrace();
             }

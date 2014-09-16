@@ -29,6 +29,14 @@
                         </div>
                         <hr />
                         <div>
+                            <i class="fa fa-user"></i><h:outputText value=" Owned By : #{ ticket.userByProductOwnerId.firstName } #{ TicketController.ticketToShow.userByProductOwnerId.lastName }"/>
+                        </div>
+                        <hr />
+                        <div>
+                            <i class="fa fa-user-md"></i><h:outputText value=" Working on : #{ ticket.userByDeveloperId.firstName } #{ TicketController.ticketToShow.userByDeveloperId.lastName }"/>
+                        </div>
+                        <hr />
+                        <div>
                             <i class="fa fa-clock-o"></i><h:outputText value=" #{ ticket.creationDate }"/>
                         </div>
                         <hr />

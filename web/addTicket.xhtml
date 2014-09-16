@@ -25,18 +25,23 @@
                         </div>
 
                         <h:outputLabel for="summary" value="Summary"/>
-                        <h:inputText id="summary" value="#{ TicketController.ticket.summary }" p:placeholder="Summary" required="true"/>
+                        <h:inputText id="summary" value="#{ TicketController.ticketToAdd.summary }" p:placeholder="Summary" required="true"/>
 
                         <h:outputLabel for="description" value="Description"/>
-                        <h:inputTextarea id="description" value="#{ TicketController.ticket.description }" p:placeholder="Description" required="true"/>
+                        <h:inputTextarea id="description" value="#{ TicketController.ticketToAdd.description }" p:placeholder="Description" required="true"/>
 
                         <h:outputLabel for="priority" value="Priority"/>
-                        <h:selectOneMenu id="priority" value="#{ TicketController.ticket.priority }">
+                        <h:selectOneMenu id="priority" value="#{ TicketController.ticketToAdd.priority }">
                             <f:selectItem itemValue="TRIVIAL" itemLabel="Trivial" />
                             <f:selectItem itemValue="MINOR" itemLabel="Minor" />
                             <f:selectItem itemValue="MAJOR" itemLabel="Major" />
                             <f:selectItem itemValue="CRITICAL" itemLabel="Critical" />
                             <f:selectItem itemValue="BLOCKER" itemLabel="Blocker" />
+                        </h:selectOneMenu>
+
+                        <h:outputLabel for="developer" value="Assign to a developer"/>
+                        <h:selectOneMenu id="developer" value="#{ TicketController.assignedDeveloperId }">
+                            <f:selectItems value="#{ UserController.developers }" var="developer" itemValue="#{ developer.id }" itemLabel="#{ developer.firstName } #{ developer.lastName }" />
                         </h:selectOneMenu>
 
                         <h:commandButton value="Add ticket" action="#{ TicketController.addTicket }" styleClass="button tiny radius"/>

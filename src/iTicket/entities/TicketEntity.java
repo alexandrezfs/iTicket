@@ -17,7 +17,8 @@ public class TicketEntity {
     private Timestamp creationDate;
     private int userId;
     private Set<CommentEntity> commentsById;
-    private UserEntity userByUserId;
+    private UserEntity userByDeveloperId;
+    private UserEntity userByProductOwnerId;
 
     @Id
     @Column(name = "id")
@@ -109,7 +110,7 @@ public class TicketEntity {
         return result;
     }
 
-    @OneToMany(mappedBy = "ticketByTicketId", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "ticketByTicketId", fetch = FetchType.EAGER, orphanRemoval=true)
     public Set<CommentEntity> getCommentsById() {
         return commentsById;
     }
@@ -119,12 +120,22 @@ public class TicketEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
-    public UserEntity getUserByUserId() {
-        return userByUserId;
+    @JoinColumn(name = "developer_id", referencedColumnName = "id", nullable = false)
+    public UserEntity getUserByDeveloperId() {
+        return userByDeveloperId;
     }
 
-    public void setUserByUserId(UserEntity userByUserId) {
-        this.userByUserId = userByUserId;
+    public void setUserByDeveloperId(UserEntity userByDeveloperId) {
+        this.userByDeveloperId = userByDeveloperId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "product_owner_id", referencedColumnName = "id", nullable = false)
+    public UserEntity getUserByProductOwnerId() {
+        return userByProductOwnerId;
+    }
+
+    public void setUserByProductOwnerId(UserEntity userByProductOwnerId) {
+        this.userByProductOwnerId = userByProductOwnerId;
     }
 }

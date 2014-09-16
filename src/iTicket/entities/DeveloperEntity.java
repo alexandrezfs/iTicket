@@ -2,7 +2,10 @@ package iTicket.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.DiscriminatorValue;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import java.sql.Timestamp;
+import java.util.Set;
 
 @Entity
 @DiscriminatorValue("DEVELOPER")

@@ -1,6 +1,7 @@
 package iTicket.jpa;
 
 import iTicket.dao.TicketDao;
+import iTicket.entities.DeveloperEntity;
 import iTicket.entities.TicketEntity;
 import iTicket.entities.UserEntity;
 import iTicket.util.HibernateUtil;
@@ -86,7 +87,7 @@ public class TicketJpa implements TicketDao {
         session.beginTransaction();
 
         TicketEntity ticket = (TicketEntity) session.load(TicketEntity.class, ticket_id);
-        HibernateUtil.getSessionFactory().getCurrentSession().delete(ticket);
+        session.delete(ticket);
 
         session.getTransaction().commit();
 
@@ -108,6 +109,24 @@ public class TicketJpa implements TicketDao {
         session.getTransaction().commit();
 
         return ticket;
+    }
+
+    @Override
+    public TicketEntity changeTicketDeveloper(int ticket_id, DeveloperEntity developer) {
+
+        TicketEntity ticket = this.getTicketById(ticket_id);
+        ticket.setUserByDeveloperId(developer);
+
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+
+        session.beginTransaction();
+
+        session.update(ticket);
+
+        session.getTransaction().commit();
+
+        return ticket;
+
     }
 
     @Override

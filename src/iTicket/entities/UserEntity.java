@@ -17,7 +17,8 @@ public class UserEntity {
     private String email;
     private Timestamp dateOfBirth;
     private Set<CommentEntity> commentsById;
-    private Set<TicketEntity> ticketsById;
+    private Set<TicketEntity> ticketsByDeveloperId;
+    private Set<TicketEntity> ticketsByProductOwnerId;
 
     public UserEntity() {}
 
@@ -130,7 +131,7 @@ public class UserEntity {
         return result;
     }
 
-    @OneToMany(mappedBy = "userByUserId", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "userByUserId", fetch = FetchType.EAGER, orphanRemoval=true)
     public Set<CommentEntity> getCommentsById() {
         return commentsById;
     }
@@ -139,12 +140,22 @@ public class UserEntity {
         this.commentsById = commentsById;
     }
 
-    @OneToMany(mappedBy = "userByUserId", fetch = FetchType.EAGER)
-    public Set<TicketEntity> getTicketsById() {
-        return ticketsById;
+
+    @OneToMany(mappedBy = "userByDeveloperId", fetch = FetchType.EAGER, orphanRemoval=true)
+    public Set<TicketEntity> getTicketsByDeveloperId() {
+        return ticketsByDeveloperId;
     }
 
-    public void setTicketsById(Set<TicketEntity> ticketsById) {
-        this.ticketsById = ticketsById;
+    public void setTicketsByDeveloperId(Set<TicketEntity> ticketsByDeveloperId) {
+        this.ticketsByDeveloperId = ticketsByDeveloperId;
+    }
+
+    @OneToMany(mappedBy = "userByProductOwnerId", fetch = FetchType.EAGER, orphanRemoval=true)
+    public Set<TicketEntity> getTicketsByProductOwnerId() {
+        return ticketsByProductOwnerId;
+    }
+
+    public void setTicketsByProductOwnerId(Set<TicketEntity> ticketsByProductOwnerId) {
+        this.ticketsByProductOwnerId = ticketsByProductOwnerId;
     }
 }

@@ -3,6 +3,7 @@ package iTicket.jpa;
 import iTicket.dao.UserDao;
 import iTicket.entities.DeveloperEntity;
 import iTicket.entities.ProductOwnerEntity;
+import iTicket.entities.TicketEntity;
 import iTicket.entities.UserEntity;
 import org.hibernate.Session;
 import iTicket.util.HibernateUtil;
@@ -99,16 +100,49 @@ public class UserJpa implements UserDao {
 
     @Override
     public List<UserEntity> getUsers() {
-        return null;
+
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+
+        session.beginTransaction();
+
+        List<UserEntity> users = session
+                .createQuery("select u from UserEntity u ORDER BY u.id ASC")
+                .list();
+
+        session.getTransaction().commit();
+
+        return users;
     }
 
     @Override
     public List<DeveloperEntity> getDevelopers() {
-        return null;
+
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+
+        session.beginTransaction();
+
+        List<DeveloperEntity> users = session
+                .createQuery("select u from DeveloperEntity u ORDER BY u.id ASC")
+                .list();
+
+        session.getTransaction().commit();
+
+        return users;
     }
 
     @Override
     public List<ProductOwnerEntity> getProductOwners() {
-        return null;
+
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+
+        session.beginTransaction();
+
+        List<ProductOwnerEntity> users = session
+                .createQuery("select u from ProductOwnerEntity u ORDER BY u.id ASC")
+                .list();
+
+        session.getTransaction().commit();
+
+        return users;
     }
 }

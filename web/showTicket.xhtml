@@ -20,7 +20,11 @@
 
                     <hr />
                     <div>
-                        <i class="fa fa-user"></i><h:outputText value=" Owned By : #{ TicketController.ticketToShow.userByUserId.firstName } #{ TicketController.ticketToShow.userByUserId.lastName }"/>
+                        <i class="fa fa-user"></i><h:outputText value=" Owned By : #{ TicketController.ticketToShow.userByProductOwnerId.firstName } #{ TicketController.ticketToShow.userByProductOwnerId.lastName }"/>
+                    </div>
+                    <hr />
+                    <div>
+                        <i class="fa fa-user-md"></i><h:outputText value=" Working on : #{ TicketController.ticketToShow.userByDeveloperId.firstName } #{ TicketController.ticketToShow.userByDeveloperId.lastName }"/>
                     </div>
                     <hr />
                     <div>
@@ -44,20 +48,28 @@
                     <hr />
 
                     <h:form>
-                        <c:if test="#{ UserType == 'Developer' }">
+                        <c:if test="#{ UserType == 'DEVELOPER' }">
                             <c:choose>
                                 <c:when test="#{ TicketController.ticketToShow.status == 'IN PROGRESS' }">
-                                    <h:commandButton value="DONE" type="submit" action="#{ TicketController.ticketToDone }" styleClass="button tiny success" />
+                                    <div>
+                                        <h:commandButton value="MARK AS DONE" type="submit" action="#{ TicketController.ticketToDone }" styleClass="button tiny success" />
+                                    </div>
                                 </c:when>
                                 <c:otherwise>
-                                    <h:commandButton value="WORKING" type="submit" action="#{ TicketController.ticketToInProgress }" styleClass="button tiny" />
+                                    <div>
+                                        <h:commandButton value="MARK AS WORKING" type="submit" action="#{ TicketController.ticketToInProgress }" styleClass="button tiny" />
+                                    </div>
                                 </c:otherwise>
                             </c:choose>
                         </c:if>
 
-                        <c:if test="#{ UserSession.id == TicketController.ticketToShow.userByUserId.id and UserType == 'ProductOwner' }">
-                            <h:commandButton value="EDIT TICKET" type="submit" action="#{ TicketController.goToEditTicket }" styleClass="button tiny" />
-                            <h:commandButton value="DELETE" type="submit" action="#{ TicketController.deleteTicket }" styleClass="button tiny alert" />
+                        <c:if test="#{ UserType == 'PRODUCT_OWNER' }">
+                            <div>
+                                <h:commandButton value="EDIT TICKET" type="submit" action="#{ TicketController.goToEditTicket }" styleClass="button tiny" />
+                            </div>
+                            <div>
+                                <h:commandButton value="DELETE" type="submit" action="#{ TicketController.deleteTicket }" styleClass="button tiny alert" />
+                            </div>
                         </c:if>
                     </h:form>
 

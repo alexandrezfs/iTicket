@@ -1,5 +1,6 @@
 package iTicket.dao;
 
+import iTicket.entities.DeveloperEntity;
 import iTicket.entities.TicketEntity;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ public interface TicketDao {
     TicketEntity getTicketById(int ticket_id);
     TicketEntity deleteTicketById(int ticket_id);
     TicketEntity changeTicketStatus(int ticket_id, String newStatus);
+    TicketEntity changeTicketDeveloper(int ticket_id, DeveloperEntity developer);
     TicketEntity editTicket(TicketEntity ticket);
 
 }

@@ -15,6 +15,8 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.Set;
 import javax.ejb.SessionContext;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -30,6 +32,9 @@ import javax.faces.application.ConfigurableNavigationHandler;
 @ViewScoped
 public class UserController implements Serializable {
 
+    /*
+        PROPERTIES FOR SIGN UP FORM
+     */
     private String username;
     private String password;
     private String firstName;
@@ -37,6 +42,8 @@ public class UserController implements Serializable {
     private String email;
     private String dateOfBirthString;
     private String userType;
+
+    private List<DeveloperEntity> developers;
 
     public void login() {
 
@@ -56,17 +63,12 @@ public class UserController implements Serializable {
 
             if(className.equals("iTicket.entities.DeveloperEntity")) {
 
-                userType = "Developer";
-
-            }
-            else if (className.equals("iTicket.entities.UserEntity")) {
-
-                userType = "Normal User";
+                userType = "DEVELOPER";
 
             }
             else if (className.equals("iTicket.entities.ProductOwnerEntity")) {
 
-                userType = "Product Owner";
+                userType = "PRODUCT_OWNER";
 
             }
 
@@ -163,7 +165,7 @@ public class UserController implements Serializable {
             ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 
             try {
-                ec.redirect(ec.getRequestContextPath() + "/login.xhtml");
+                ec.redirect(ec.getRequestContextPath() + "/signin.xhtml");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -225,5 +227,16 @@ public class UserController implements Serializable {
 
     public void setUserType(String userType) {
         this.userType = userType;
+    }
+
+    public List<DeveloperEntity> getDevelopers() {
+
+        this.developers = new UserJpa().getDevelopers();
+
+        return developers;
+    }
+
+    public void setDevelopers(List<DeveloperEntity> developers) {
+        this.developers = developers;
     }
 }

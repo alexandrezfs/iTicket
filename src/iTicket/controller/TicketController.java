@@ -1,12 +1,12 @@
 package iTicket.controller;
 
-import iTicket.entities.CommentEntity;
-import iTicket.entities.TicketEntity;
-import iTicket.entities.UserEntity;
+import iTicket.dao.UserDao;
+import iTicket.entities.*;
 import iTicket.jpa.CommentJpa;
 import iTicket.jpa.TicketJpa;
 import iTicket.jpa.UserJpa;
 import iTicket.util.StaticValues;
+import iTicket.util.UserUtil;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -24,13 +24,13 @@ import java.util.*;
 @ViewScoped
 public class TicketController implements Serializable {
 
-    private TicketEntity ticket = new TicketEntity();
+    private TicketEntity ticketToAdd = new TicketEntity();
     private TicketEntity ticketToShow;
     private TicketEntity ticketToEdit;
     private List<TicketEntity> allTickets = new ArrayList<TicketEntity>();
     private List<TicketEntity> newTickets = new ArrayList<TicketEntity>();
-    private Set<TicketEntity> myTickets = new LinkedHashSet<TicketEntity>();
     private CommentEntity commentToAdd = new CommentEntity();
+    private int assignedDeveloperId = 1;
 
     public TicketController() {
 
@@ -50,25 +50,42 @@ public class TicketController implements Serializable {
 
     }
 
-    public String addTicket() {
+    public void addTicket() {
 
         ExternalContext eC = FacesContext.getCurrentInstance().getExternalContext();
 
-        TicketJpa tJ = new TicketJpa();
+        if (eC.getSessionMap().get(StaticValues.USER_TYPE_SESSION_ATTRIBUTE).equals("PRODUCT_OWNER")) {
 
-        this.ticket.setCreationDate(new Timestamp(new Date().getTime()));
-        this.ticket.setStatus(StaticValues.TICKET_STATUS_NEW);
-        this.ticket.setUserByUserId((UserEntity) eC.getSessionMap().get(StaticValues.USER_SESSION_ATTRIBUTE));
+            TicketJpa tJ = new TicketJpa();
+            UserJpa uJ = new UserJpa();
 
-        tJ.addTicket(this.ticket);
+            if (eC.getSessionMap().get(StaticValues.USER_TYPE_SESSION_ATTRIBUTE).equals("PRODUCT_OWNER")) {
 
-        try {
-            eC.redirect(eC.getRequestContextPath() + "/myTickets.xhtml");
-        } catch (IOException e) {
-            e.printStackTrace();
+                this.ticketToAdd.setUserByProductOwnerId((ProductOwnerEntity) eC.getSessionMap().get(StaticValues.USER_SESSION_ATTRIBUTE));
+                this.ticketToAdd.setUserByDeveloperId((uJ.getUserById(this.assignedDeveloperId)));
+                this.ticketToAdd.setCreationDate(new Timestamp(new Date().getTime()));
+
+                if(this.ticketToAdd.getUserByDeveloperId().getId() == 1) {
+                    this.ticketToAdd.setStatus(StaticValues.TICKET_STATUS_NEW);
+                }
+                else {
+                    this.ticketToAdd.setStatus(StaticValues.TICKET_STATUS_IN_PROGRESS);
+                }
+
+                tJ.addTicket(this.ticketToAdd);
+
+                new UserUtil().reloadUserInSession();
+
+                try {
+                    eC.redirect(eC.getRequestContextPath() + "/myOwnedTickets.xhtml");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
         }
 
-        return null;
     }
 
     public void showTicket(int ticket_id) {
@@ -97,9 +114,21 @@ public class TicketController implements Serializable {
 
     public void changeTicketStatus(String status) {
 
-        new TicketJpa().changeTicketStatus(this.ticketToShow.getId(), status);
+        ExternalContext eC = FacesContext.getCurrentInstance().getExternalContext();
 
-        this.showTicket(this.ticketToShow.getId());
+        if (eC.getSessionMap().get(StaticValues.USER_TYPE_SESSION_ATTRIBUTE).equals("DEVELOPER")) {
+
+            TicketJpa ticketJpa = new TicketJpa();
+
+            ticketJpa.changeTicketStatus(this.ticketToShow.getId(), status);
+            ticketJpa.changeTicketDeveloper(this.ticketToShow.getId(),
+                    (DeveloperEntity) eC.getSessionMap().get(StaticValues.USER_SESSION_ATTRIBUTE));
+
+            new UserUtil().reloadUserInSession();
+
+            this.showTicket(this.ticketToShow.getId());
+
+        }
 
     }
 
@@ -122,7 +151,7 @@ public class TicketController implements Serializable {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 
         try {
-            ec.redirect(ec.getRequestContextPath() + "/myTickets.xhtml");
+            ec.redirect(ec.getRequestContextPath() + "/allTickets.xhtml");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -132,10 +161,12 @@ public class TicketController implements Serializable {
 
         new TicketJpa().deleteTicketById(this.ticketToShow.getId());
 
+        new UserUtil().reloadUserInSession();
+
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 
         try {
-            ec.redirect(ec.getRequestContextPath() + "/myTickets.xhtml");
+            ec.redirect(ec.getRequestContextPath() + "/allTickets.xhtml");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -154,12 +185,12 @@ public class TicketController implements Serializable {
         this.showTicket(this.ticketToShow.getId());
     }
 
-    public TicketEntity getTicket() {
-        return ticket;
+    public TicketEntity getTicketToAdd() {
+        return ticketToAdd;
     }
 
-    public void setTicket(TicketEntity ticket) {
-        this.ticket = ticket;
+    public void setTicketToAdd(TicketEntity ticket) {
+        this.ticketToAdd = ticket;
     }
 
     public List<TicketEntity> getAllTickets() {
@@ -200,31 +231,20 @@ public class TicketController implements Serializable {
         this.newTickets = newTickets;
     }
 
-    public Set<TicketEntity> getMyTickets() {
-
-        ExternalContext eC = FacesContext.getCurrentInstance().getExternalContext();
-
-        if(eC.getSessionMap().get(StaticValues.USER_SESSION_ATTRIBUTE) != null) {
-
-            UserEntity user = (UserEntity) eC.getSessionMap().get(StaticValues.USER_SESSION_ATTRIBUTE);
-
-            this.myTickets = user.getTicketsById();
-
-        }
-
-        return myTickets;
-    }
-
-    public void setMyTickets(Set<TicketEntity> myTickets) {
-        this.myTickets = myTickets;
-    }
-
     public CommentEntity getCommentToAdd() {
         return commentToAdd;
     }
 
     public void setCommentToAdd(CommentEntity commentToAdd) {
         this.commentToAdd = commentToAdd;
+    }
+
+    public int getAssignedDeveloperId() {
+        return assignedDeveloperId;
+    }
+
+    public void setAssignedDeveloperId(int assignedDeveloperId) {
+        this.assignedDeveloperId = assignedDeveloperId;
     }
 
 }

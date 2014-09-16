@@ -45,22 +45,29 @@
                 <ul class="left">
                     <li class="divider"></li>
                     <li>
-                        <a href="allTickets.xhtml"><i class="fa fa-list-ul"></i> All Tickets</a>
+                        <a href="allTickets.xhtml"><i class="fa fa-list-ul"></i> All tickets</a>
                     </li>
                     <li class="divider"></li>
                     <li>
-                        <a href="newTickets.xhtml"><i class="fa fa-refresh"></i> New Tickets</a>
+                        <a href="newTickets.xhtml"><i class="fa fa-refresh"></i> New tickets</a>
                     </li>
                     <li class="divider"></li>
-                    <c:if test="#{ UserType == 'ProductOwner' }">
+                    <c:if test="#{ UserType == 'PRODUCT_OWNER' }">
                         <li>
-                            <a href="addTicket.xhtml"> <i class="fa fa-plus-circle"></i>Add Ticket</a>
+                            <a href="myOwnedTickets.xhtml"> <i class="fa fa-bookmark"></i> My owned tickets</a>
+                        </li>
+                    </c:if>
+                    <c:if test="#{ UserType == 'DEVELOPER' }">
+                        <li>
+                            <a href="myTicketsInProgress.xhtml"> <i class="fa fa-bookmark"></i> My tickets in progress</a>
                         </li>
                     </c:if>
                     <li class="divider"></li>
-                    <li>
-                        <a href="myTickets.xhtml"> <i class="fa fa-bookmark"></i> My Tickets</a>
-                    </li>
+                    <c:if test="#{ UserType == 'PRODUCT_OWNER' }">
+                        <li>
+                            <a href="addTicket.xhtml"><i class="fa fa-plus-circle"></i> Add ticket</a>
+                        </li>
+                    </c:if>
                 </ul>
 
             </c:if>
@@ -80,7 +87,7 @@
                     <c:otherwise>
                         <li>
                             <a href="#">
-                                <h:outputText value=" ${ UserSession.firstName } ${ UserSession.lastName } [ ${ UserType } ]"/>
+                                <i class="fa fa-user"></i><h:outputText value=" ${ UserSession.firstName } ${ UserSession.lastName } [ ${ UserType } ]"/>
                             </a>
                         </li>
                         <li class="divider"></li>

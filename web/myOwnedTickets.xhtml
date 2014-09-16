@@ -12,13 +12,13 @@
 
             <div class="large-12 columns">
 
-                <h1>New Tickets</h1>
+                <h1>My owned tickets</h1>
 
                 <div class="row">
 
                     <div class="large-12 columns" id="newTickets">
 
-                        <c:forEach var="ticket" items="#{ TicketController.newTickets }">
+                        <c:forEach var="ticket" items="#{ UserSession.ticketsByProductOwnerId }">
 
                             <div class="shuffleItem panel">
                                 <div>

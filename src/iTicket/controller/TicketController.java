@@ -141,7 +141,7 @@ public class TicketController implements Serializable {
         }
     }
 
-    public void commentTicket() {
+    public void postComment() {
 
         ExternalContext eC = FacesContext.getCurrentInstance().getExternalContext();
 
@@ -218,4 +218,13 @@ public class TicketController implements Serializable {
     public void setMyTickets(Set<TicketEntity> myTickets) {
         this.myTickets = myTickets;
     }
+
+    public CommentEntity getCommentToAdd() {
+        return commentToAdd;
+    }
+
+    public void setCommentToAdd(CommentEntity commentToAdd) {
+        this.commentToAdd = commentToAdd;
+    }
+
 }

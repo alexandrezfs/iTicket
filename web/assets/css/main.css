@@ -25,3 +25,8 @@
 .signOutBtn:hover {
     color: #ffffff;
 }
+
+.comment-text {
+    font-size: 0.8em;
+    margin-top: 10px;
+}

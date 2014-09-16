@@ -61,6 +61,40 @@
                         </c:if>
                     </h:form>
 
+                    <hr />
+
+                    <div>
+
+                        <h:form id="comment-form">
+
+                            <label for="comment">Post a comment</label>
+                            <h:inputTextarea id="comment"
+                                             value="#{ TicketController.commentToAdd.content }"
+                                             required="true"
+                                             label="Password"/>
+
+                            <h:commandButton value="Post" action="#{TicketController.postComment}" styleClass="button tiny success"/>
+
+                        </h:form>
+
+                        <c:forEach var="comment" items="#{ ticketController.ticketToShow.commentsById }">
+
+                            <div class="panel">
+                                <div>
+                                    <i class="fa fa-clock-o"></i> <h:outputText value=" #{ comment.creationDate }"/>
+                                </div>
+                                <div>
+                                    <i class="fa fa-user"></i> <h:outputText value=" #{ comment.userByUserId.firstName } #{ comment.userByUserId.lastName }"/>
+                                </div>
+                                <div class="comment-text">
+                                    <h:outputText value="#{ comment.content }"/>
+                                </div>
+                            </div>
+
+                        </c:forEach>
+
+                    </div>
+
                 </div>
 
             </div>

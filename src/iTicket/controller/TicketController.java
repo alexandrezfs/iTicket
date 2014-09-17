@@ -1,6 +1,5 @@
 package iTicket.controller;
 
-import iTicket.dao.UserDao;
 import iTicket.entities.*;
 import iTicket.jpa.CommentJpa;
 import iTicket.jpa.TicketJpa;
@@ -14,7 +13,6 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -181,6 +179,15 @@ public class TicketController implements Serializable {
         this.commentToAdd.setUserByUserId((UserEntity) eC.getSessionMap().get(StaticValues.USER_SESSION_ATTRIBUTE));
 
         new CommentJpa().addComment(this.commentToAdd);
+
+        //send a mail to the ticket owner
+        //You must configure a web server before to use it
+        new UserUtil().sendMail("localhost",
+                25,
+                "admin@localhost",
+                "New comment on ticket #" + this.ticketToShow.getId(),
+                this.commentToAdd.getContent(),
+                this.ticketToShow.getUserByProductOwnerId().getEmail());
 
         this.showTicket(this.ticketToShow.getId());
     }

@@ -3,6 +3,9 @@ package iTicket.util;
 import iTicket.dao.UserDao;
 import iTicket.entities.UserEntity;
 import iTicket.jpa.UserJpa;
+import org.apache.commons.mail.Email;
+import org.apache.commons.mail.EmailException;
+import org.apache.commons.mail.SimpleEmail;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -24,6 +27,22 @@ public class UserUtil {
 
         }
 
+    }
+
+    public void sendMail(String serverName, int port, String from, String subject, String content, String to) {
+
+        Email email = new SimpleEmail();
+        try {
+            email.setHostName(serverName);
+            email.setSmtpPort(port);
+            email.setFrom(from);
+            email.setSubject(subject);
+            email.setMsg(content);
+            email.addTo(to);
+            email.send();
+        } catch (EmailException e) {
+            e.printStackTrace();
+        }
     }
 
 }

@@ -33,6 +33,7 @@
     <orderEntry type="library" name="Hibernate 4.2.2-4.2.2" level="project" />
     <orderEntry type="library" name="mysql-connector-java-5.1.32-bin" level="project" />
     <orderEntry type="library" name="org.primefaces:primefaces:4.0" level="project" />
+    <orderEntry type="library" name="org.apache.commons:commons-email:1.3.3" level="project" />
   </component>
 </module>
 

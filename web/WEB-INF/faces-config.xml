@@ -18,8 +18,8 @@
 
     <managed-bean>
         <managed-bean-name>UiBean</managed-bean-name>
-        <managed-bean-class>iTicket.template.UiBean</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
+        <managed-bean-class>iTicket.util.UiBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
 
 </faces-config>

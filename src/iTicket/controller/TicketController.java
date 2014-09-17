@@ -75,7 +75,7 @@ public class TicketController implements Serializable {
                 new UserUtil().reloadUserInSession();
 
                 try {
-                    eC.redirect(eC.getRequestContextPath() + "/myOwnedTickets.xhtml");
+                    eC.redirect(eC.getRequestContextPath() + "/secured/myOwnedTickets.xhtml");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -91,7 +91,7 @@ public class TicketController implements Serializable {
         ExternalContext eC = FacesContext.getCurrentInstance().getExternalContext();
 
         try {
-            eC.redirect(eC.getRequestContextPath() + "/showTicket.xhtml?ticket_id=" + ticket_id);
+            eC.redirect(eC.getRequestContextPath() + "/secured/showTicket.xhtml?ticket_id=" + ticket_id);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -132,10 +132,10 @@ public class TicketController implements Serializable {
 
     public void goToEditTicket() {
 
-        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        ExternalContext eC = FacesContext.getCurrentInstance().getExternalContext();
 
         try {
-            ec.redirect(ec.getRequestContextPath() + "/editTicket.xhtml?ticket_id=" + this.ticketToShow.getId());
+            eC.redirect(eC.getRequestContextPath() + "/secured/editTicket.xhtml?ticket_id=" + this.ticketToShow.getId());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -146,10 +146,10 @@ public class TicketController implements Serializable {
 
         new TicketJpa().editTicket(this.ticketToEdit);
 
-        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        ExternalContext eC = FacesContext.getCurrentInstance().getExternalContext();
 
         try {
-            ec.redirect(ec.getRequestContextPath() + "/allTickets.xhtml");
+            eC.redirect(eC.getRequestContextPath() + "/secured/allTickets.xhtml");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -161,10 +161,10 @@ public class TicketController implements Serializable {
 
         new UserUtil().reloadUserInSession();
 
-        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        ExternalContext eC = FacesContext.getCurrentInstance().getExternalContext();
 
         try {
-            ec.redirect(ec.getRequestContextPath() + "/allTickets.xhtml");
+            eC.redirect(eC.getRequestContextPath() + "/secured/allTickets.xhtml");
         } catch (IOException e) {
             e.printStackTrace();
         }

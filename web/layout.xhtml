@@ -7,19 +7,19 @@
 <h:head>
     <title>iTicket</title>
 
-    <link rel="stylesheet" href="assets/bower_components/font-awesome/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="assets/bower_components/foundation/css/foundation.css" />
-    <link rel="stylesheet" href="assets/bower_components/fancybox/source/jquery.fancybox.css" />
-    <link rel="stylesheet" href="assets/bower_components/datetimepicker/jquery.datetimepicker.css" />
-    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="${ UiBean.contextPath }/assets/bower_components/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="${ UiBean.contextPath }/assets/bower_components/foundation/css/foundation.css" />
+    <link rel="stylesheet" href="${ UiBean.contextPath }/assets/bower_components/fancybox/source/jquery.fancybox.css" />
+    <link rel="stylesheet" href="${ UiBean.contextPath }/assets/bower_components/datetimepicker/jquery.datetimepicker.css" />
+    <link rel="stylesheet" href="${ UiBean.contextPath }/assets/css/main.css" />
 
-    <script src="assets/bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="assets/bower_components/modernizr/modernizr.js"></script>
-    <script src="assets/bower_components/foundation/js/foundation.min.js"></script>
-    <script src="assets/bower_components/shufflejs/dist/jquery.shuffle.min.js"></script>
-    <script src="assets/bower_components/fancybox/source/jquery.fancybox.pack.js"></script>
-    <script src="assets/bower_components/datetimepicker/jquery.datetimepicker.js"></script>
-    <script src="assets/js/main.js"></script>
+    <script src="${ UiBean.contextPath }/assets/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="${ UiBean.contextPath }/assets/bower_components/modernizr/modernizr.js"></script>
+    <script src="${ UiBean.contextPath }/assets/bower_components/foundation/js/foundation.min.js"></script>
+    <script src="${ UiBean.contextPath }/assets/bower_components/shufflejs/dist/jquery.shuffle.min.js"></script>
+    <script src="${ UiBean.contextPath }/assets/bower_components/fancybox/source/jquery.fancybox.pack.js"></script>
+    <script src="${ UiBean.contextPath }/assets/bower_components/datetimepicker/jquery.datetimepicker.js"></script>
+    <script src="${ UiBean.contextPath }/assets/js/main.js"></script>
 
 </h:head>
 <h:body>
@@ -29,7 +29,7 @@
 
             <li class="name">
                 <h1>
-                    <a href="index.xhtml">
+                    <a href="${ UiBean.contextPath }/index.xhtml">
                         <i class="fa fa-ticket"></i> iTicket
                     </a>
                 </h1>
@@ -45,27 +45,27 @@
                 <ul class="left">
                     <li class="divider"></li>
                     <li>
-                        <a href="allTickets.xhtml"><i class="fa fa-list-ul"></i> All tickets</a>
+                        <a href="${ UiBean.contextPath }/secured/allTickets.xhtml"><i class="fa fa-list-ul"></i> All tickets</a>
                     </li>
                     <li class="divider"></li>
                     <li>
-                        <a href="newTickets.xhtml"><i class="fa fa-refresh"></i> New tickets</a>
+                        <a href="${ UiBean.contextPath }/secured/newTickets.xhtml"><i class="fa fa-refresh"></i> New tickets</a>
                     </li>
                     <li class="divider"></li>
                     <c:if test="#{ UserType == 'PRODUCT_OWNER' }">
                         <li>
-                            <a href="myOwnedTickets.xhtml"> <i class="fa fa-bookmark"></i> My owned tickets</a>
+                            <a href="${ UiBean.contextPath }/secured/myOwnedTickets.xhtml"> <i class="fa fa-bookmark"></i> My owned tickets</a>
                         </li>
                     </c:if>
                     <c:if test="#{ UserType == 'DEVELOPER' }">
                         <li>
-                            <a href="myTicketsInProgress.xhtml"> <i class="fa fa-bookmark"></i> My tickets in progress</a>
+                            <a href="${ UiBean.contextPath }/secured/myTicketsInProgress.xhtml"> <i class="fa fa-bookmark"></i> My tickets in progress</a>
                         </li>
                     </c:if>
                     <li class="divider"></li>
                     <c:if test="#{ UserType == 'PRODUCT_OWNER' }">
                         <li>
-                            <a href="addTicket.xhtml"><i class="fa fa-plus-circle"></i> Add ticket</a>
+                            <a href="${ UiBean.contextPath }/secured/addTicket.xhtml"><i class="fa fa-plus-circle"></i> Add ticket</a>
                         </li>
                     </c:if>
                 </ul>

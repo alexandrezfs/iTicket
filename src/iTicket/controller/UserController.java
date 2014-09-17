@@ -1,6 +1,5 @@
 package iTicket.controller;
 
-import com.sun.faces.context.SessionMap;
 import iTicket.dao.UserDao;
 import iTicket.entities.DeveloperEntity;
 import iTicket.entities.ProductOwnerEntity;
@@ -10,23 +9,15 @@ import iTicket.util.StaticValues;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.Date;
 import java.sql.Timestamp;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Set;
-import javax.ejb.SessionContext;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import javax.faces.application.ConfigurableNavigationHandler;
 
 @ManagedBean
 @ViewScoped
@@ -75,10 +66,8 @@ public class UserController implements Serializable {
             eC.getSessionMap().put(StaticValues.USER_SESSION_ATTRIBUTE, user);
             eC.getSessionMap().put(StaticValues.USER_TYPE_SESSION_ATTRIBUTE, userType);
 
-            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-
             try {
-                ec.redirect(ec.getRequestContextPath() + "/newTickets.xhtml");
+                eC.redirect(eC.getRequestContextPath() + "/secured/newTickets.xhtml");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -93,10 +82,8 @@ public class UserController implements Serializable {
         eC.getSessionMap().put(StaticValues.USER_SESSION_ATTRIBUTE, null);
         eC.getSessionMap().put(StaticValues.USER_TYPE_SESSION_ATTRIBUTE, null);
 
-        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-
         try {
-            ec.redirect(ec.getRequestContextPath() + "/index.xhtml");
+            eC.redirect(eC.getRequestContextPath() + "/index.xhtml");
         } catch (IOException e) {
             e.printStackTrace();
         }

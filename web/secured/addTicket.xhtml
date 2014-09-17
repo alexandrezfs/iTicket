@@ -4,7 +4,7 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:c="http://java.sun.com/jstl/core"
                 xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
-                template="layout.xhtml">
+                template="../layout.xhtml">
 
     <ui:define name="inBody">
 
@@ -14,7 +14,7 @@
 
                 <div class="panel">
 
-                    <h1>Edit ticket</h1>
+                    <h1>Add Ticket</h1>
 
                     <h:form>
 
@@ -25,13 +25,13 @@
                         </div>
 
                         <h:outputLabel for="summary" value="Summary"/>
-                        <h:inputText id="summary" value="#{ TicketController.ticketToEdit.summary }" p:placeholder="Summary" required="true"/>
+                        <h:inputText id="summary" value="#{ TicketController.ticketToAdd.summary }" p:placeholder="Summary" required="true"/>
 
                         <h:outputLabel for="description" value="Description"/>
-                        <h:inputTextarea id="description" value="#{ TicketController.ticketToEdit.description }" p:placeholder="Description" required="true"/>
+                        <h:inputTextarea id="description" value="#{ TicketController.ticketToAdd.description }" p:placeholder="Description" required="true"/>
 
                         <h:outputLabel for="priority" value="Priority"/>
-                        <h:selectOneMenu id="priority" value="#{ TicketController.ticketToEdit.priority }">
+                        <h:selectOneMenu id="priority" value="#{ TicketController.ticketToAdd.priority }">
                             <f:selectItem itemValue="TRIVIAL" itemLabel="Trivial" />
                             <f:selectItem itemValue="MINOR" itemLabel="Minor" />
                             <f:selectItem itemValue="MAJOR" itemLabel="Major" />
@@ -39,7 +39,12 @@
                             <f:selectItem itemValue="BLOCKER" itemLabel="Blocker" />
                         </h:selectOneMenu>
 
-                        <h:commandButton value="Edit ticket" action="#{ TicketController.editTicket }" styleClass="button tiny radius"/>
+                        <h:outputLabel for="developer" value="Assign to a developer"/>
+                        <h:selectOneMenu id="developer" value="#{ TicketController.assignedDeveloperId }">
+                            <f:selectItems value="#{ UserController.developers }" var="developer" itemValue="#{ developer.id }" itemLabel="#{ developer.firstName } #{ developer.lastName }" />
+                        </h:selectOneMenu>
+
+                        <h:commandButton value="Add ticket" action="#{ TicketController.addTicket }" styleClass="button tiny radius"/>
 
                     </h:form>
 

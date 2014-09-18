@@ -19,6 +19,31 @@
         <url-pattern>/secured/*</url-pattern>
     </filter-mapping>
 
+    <filter>
+        <filter-name>DeveloperFilter</filter-name>
+        <filter-class>iTicket.filter.DeveloperFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>DeveloperFilter</filter-name>
+        <url-pattern>/secured/myTicketsInProgress.xhtml</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>ProductOwnerFilter</filter-name>
+        <filter-class>iTicket.filter.ProductOwnerFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>ProductOwnerFilter</filter-name>
+        <url-pattern>/secured/myOwnedTickets.xhtml</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>ProductOwnerFilter</filter-name>
+        <url-pattern>/secured/addTicket.xhtml</url-pattern>
+    </filter-mapping>
+
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>

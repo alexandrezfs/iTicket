@@ -4,9 +4,9 @@ $(document).ready(function() {
         itemSelector : '.shuffleItem'
     });
 
-    $("#newTickets").shuffle({
-        itemSelector : '.shuffleItem'
-    });
+    setInterval(function() {
+        $("#allTickets").shuffle('update');
+    }, 500);
 
     if($("#signup-page").length > 0) {
 

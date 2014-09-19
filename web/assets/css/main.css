@@ -13,9 +13,25 @@
     margin-bottom: 20px;
 }
 
-.shuffleItem {
-    width: 30.5555%;
-    margin: 5px;
+@media (max-width: 640px) {
+    .shuffleItem {
+        width: 90%;
+        margin: 5px;
+    }
+}
+
+@media (min-width: 640px) and (max-width: 1200px) {
+    .shuffleItem {
+        width: 47%;
+        margin: 5px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .shuffleItem {
+        width: 30.555555%;
+        margin: 5px;
+    }
 }
 
 .signOutBtn {
